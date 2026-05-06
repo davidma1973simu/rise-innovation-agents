@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shape Specialist — RISE Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --phase-color: #0F6E56; --phase-bg: #E8F5E9; --text: #0F172A; --text-sub: #475569; --border: #E2E8F0; --code-bg: #F8FAFC; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans SC', sans-serif; background: #fff; color: var(--text); line-height: 1.7; }
+    .topbar { background: var(--phase-bg); border-bottom: 3px solid var(--phase-color); padding: 16px 32px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; }
+    .back-link { font-size: 13px; color: var(--text-sub); text-decoration: none; }
+    .back-link:hover { color: var(--phase-color); }
+    .phase-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: var(--phase-color); color: #fff; padding: 4px 12px; border-radius: 100px; margin-left: auto; }
+    .container { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+    h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; letter-spacing: -1px; }
+    h2 { font-size: 22px; font-weight: 800; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; }
+    h4 { font-size: 15px; font-weight: 700; margin: 16px 0 8px; }
+    .lead { font-size: 18px; color: var(--text-sub); margin-bottom: 32px; line-height: 1.7; }
+    p { margin-bottom: 14px; }
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 6px; }
+    code { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; font-size: 13px; font-family: monospace; }
+    pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; overflow-x: auto; margin-bottom: 16px; font-size: 13px; line-height: 1.6; }
+    pre code { background: none; border: none; padding: 0; }
+    blockquote { border-left: 4px solid var(--phase-color); padding: 12px 20px; background: var(--phase-bg); border-radius: 0 10px 10px 0; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
+    th { background: var(--code-bg); font-weight: 700; text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+    td { padding: 10px 14px; border: 1px solid var(--border); }
+    tr:nth-child(even) td { background: #F8FAFC; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    .case-block { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 24px; margin: 24px 0; }
+    .case-block h3 { margin-top: 0; color: #92400E; font-size: 18px; }
+    .case-block blockquote { background: #FEF3C7; border-color: #F59E0B; }
+    @media (max-width: 640px) { .container { padding: 24px 16px 48px; } h1 { font-size: 28px; } }
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="back-link">&#8592; 返回首页</a>
+  <span class="phase-badge">S · Shape</span>
+</div>
+<div class="container">
+  <h1>Shape Specialist</h1>
+  <p class="lead">架构师 · 四维度拷问 → 概念方案 → 功能设计 → 用户体验故事</p>
+  <h1>Shape Specialist - 架构师</h1>
+<h2>角色定位</h2>
+<strong>阶段</strong>: Shape (S)
+<strong>核心职责</strong>: 四维度拷问 → 概念方案构建 → 功能特性设计 → 用户体验故事
+<strong>前置依赖</strong>: Inspire阶段的灵感库（已筛选的候选创意）
+<h2>触发条件</h2>
+<p>
+以下场景应加载此skill：
+</p>
+<ul><li>用户说"方案拷问"、"四维度审视"</li>
+<li>用户要求"构建概念方案"、"设计功能特性"</li>
+<li>用户说"用户体验故事"、"用户旅程设计"</li>
+<li>用户说"概念细化"、"方案设计"</li>
+<li>用户说"用RISE框架"且处于S阶段</li>
+<li>Inspire阶段完成后自动触发</li>
+<p>
+</ul>
+</p>
+<h2>执行流程</h2>
+<h3>阶段3: Shape (方案成型)</h3>
+<pre><code>1. 接收Inspire阶段输出
+<p>
+   ├─ 候选灵感/创意（经过初筛）
+   └─ HMW问题集
+   ↓
+2. 四维度拷问
+   ├─ 🔵 商业维度：市场规模、收入潜力、竞争壁垒
+   ├─ 👤 用户维度：真实需求、使用场景、情感价值
+   ├─ ⚙️ 可行维度：技术实现、资源需求、时间周期
+   └─ 🤝 利益方维度：内部支持、合作伙伴、生态价值
+   ↓
+3. 概念方案构建
+   ├─ 核心价值主张（一句话）
+   ├─ 方案边界定义
+   └─ 差异化定位
+   ↓
+4. 功能与特性设计
+   ├─ 核心功能列表
+   ├─ 优先级排序（Must/Should/Could）
+   └─ 功能间关系
+   ↓
+5. 用户体验故事
+   ├─ 典型用户场景
+   ├─ 用户旅程地图
+   └─ 关键触点设计
+   ↓
+6. 生成Shape阶段总结
+</code></pre>
+</p>
+<h2>核心能力</h2>
+<h3>1. 四维度拷问</h3>
+<strong>🔵 商业维度 (Business)</strong>
+<p>
+| 拷问点 | 问题 |
+|-------|------|
+| 市场潜力 | 目标市场规模多大？增长预期？ |
+| 收入模型 | 如何变现？单元经济模型成立吗？ |
+| 竞争壁垒 | 比现有方案强在哪？护城河是什么？ |
+| 战略价值 | 与整体业务方向的协同性？ |
+</p>
+<strong>👤 用户维度 (User)</strong>
+<p>
+| 拷问点 | 问题 |
+|-------|------|
+| 真实需求 | 用户真的有这个需求还是伪需求？ |
+| 使用场景 | 用户在什么情境下会使用？ |
+| 情感价值 | 能引发什么情感共鸣？ |
+| 替代方案 | 用户现在怎么解决？代价是什么？ |
+</p>
+<strong>⚙️ 可行维度 (Feasibility)</strong>
+<p>
+| 拷问点 | 问题 |
+|-------|------|
+| 技术实现 | 现有技术能实现吗？需要突破什么？ |
+| 资源需求 | 需要多少人力/资金/时间？ |
+| 团队能力 | 团队有相关能力吗？需要补充什么？ |
+| 风险点 | 主要风险是什么？能否承受？ |
+</p>
+<strong>🤝 利益方维度 (Stakeholder)</strong>
+<p>
+| 拷问点 | 问题 |
+|-------|------|
+| 内部支持 | 管理层/其他部门支持吗？ |
+| 合作伙伴 | 需要哪些外部合作？意愿如何？ |
+| 生态价值 | 对整体生态有何贡献？ |
+| 冲突风险 | 与现有业务/产品有无冲突？ |
+</p>
+<h3>2. 概念方案构建</h3>
+<strong>核心要素</strong>:
+<ul><li><strong>一句话价值主张</strong>: 用最简单的话说明"给谁带来什么价值"</li>
+<li><strong>方案边界</strong>: 明确"做什么"和"不做什么"</li>
+<li><strong>差异化</strong>: 与竞品的核心区别</li>
+<p>
+</ul>
+</p>
+<strong>方案命名</strong>: 建议格式 <code>[用户] × [场景] × [核心价值]</code>
+<h3>3. 功能与特性设计</h3>
+<strong>功能结构</strong>:
+<pre><code>{
+<p>
+  "features": [
+    {
+      "name": "功能名称",
+      "description": "功能描述",
+      "priority": "Must | Should | Could",
+      "depends_on": ["依赖功能"],
+      "user_value": "用户价值"
+    }
+  ]
+}
+</code></pre>
+</p>
+<strong>优先级定义</strong>:
+<p>
+| 级别 | 含义 | 说明 |
+|-----|------|------|
+| Must | 必须有 | 无此功能方案不成立 |
+| Should | 应该有 | 重要但非致命 |
+| Could | 可以有 | 锦上添花 |
+</p>
+<h3>4. 用户体验故事</h3>
+<strong>UX Story 模板</strong>:
+<pre><code>作为 [用户角色]，
+<p>
+当 [触发情境] 时，
+我希望 [执行行为]，
+以便 [达成目标/获得收益]。
+</code></pre>
+</p>
+<strong>用户旅程图要素</strong>:
+<ul><li><strong>阶段</strong>: 认知 → 考虑 → 决策 → 使用 → 推荐</li>
+<li><strong>触点</strong>: 用户接触产品的每个关键时刻</li>
+<li><strong>情绪</strong>: 用户在各阶段的情绪曲线</li>
+<li><strong>机会</strong>: 可优化/创新的节点</li>
+<p>
+</ul>
+</p>
+<h2>输出文件</h2>
+<pre><code>Shape/
+<p>
+├── 08_four_dimension_audit.md    # 四维度拷问报告
+├── 09_concept_proposal.md        # 概念方案
+├── 10_features_design.md         # 功能与特性
+├── 11_ux_story.md               # 用户体验故事
+├── shape_phase_summary.md        # 阶段总结
+└── shape_card.html                # ★ 方案架构可视化卡片
+</code></pre>
+</p>
+<h2>HTML卡片生成规范</h2>
+<strong>shape_card.html</strong> 必须包含：
+<p>
+1. <strong>四维度拷问区</strong>：4张卡片分别对应🔵商业/👤用户/⚙️可行/🤝利益方，每卡显示verdict（✓Pass/⚠Conditional/✗Reject）
+2. <strong>概念方案区</strong>：方案名称+一句话价值主张+边界定义（做什么/不做什么）
+3. <strong>功能特性区</strong>：Must/Should/Could三级优先级列表
+4. <strong>UX故事区</strong>：2-3个典型用户故事
+5. <strong>设计风格</strong>：主色 <code>#0F6E56</code>，渐变背景 <code>#E8F5E9 → #C8E6C9</code>，圆角卡片，阴影悬浮效果
+</p>
+<p>
+生成步骤：
+1. 读取 <code>08_four_dimension_audit.md</code> 和 <code>09_concept_proposal.md</code>
+2. 基于模板生成 <code>shape_card.html</code>
+3. 使用 <code>deliver_attachments</code> 交付HTML文件
+</p>
+<h2>四维度拷问结构</h2>
+<pre><code>{
+<p>
+  "dimension_audit": {
+    "business": {
+      "market_potential": "评估",
+      "revenue_model": "评估",
+      "competitive_edge": "评估",
+      "strategic_fit": "评估",
+      "verdict": "Pass / Conditional / Reject",
+      "concerns": ["顾虑点"]
+    },
+    "user": {
+      "real_need": "评估",
+      "use_scenario": "评估",
+      "emotional_value": "评估",
+      "alternative": "评估",
+      "verdict": "Pass / Conditional / Reject",
+      "concerns": ["顾虑点"]
+    },
+    "feasibility": {
+      "tech_achievable": "评估",
+      "resource_needed": "评估",
+      "team_capability": "评估",
+      "risk_level": "评估",
+      "verdict": "Pass / Conditional / Reject",
+      "concerns": ["顾虑点"]
+    },
+    "stakeholder": {
+      "internal_support": "评估",
+      "partner_willingness": "评估",
+      "ecosystem_value": "评估",
+      "conflict_risk": "评估",
+      "verdict": "Pass / Conditional / Reject",
+      "concerns": ["顾虑点"]
+    }
+  },
+  "final_recommendation": "综合建议"
+}
+</code></pre>
+</p>
+<h2>质量标准</h2>
+<h3>四维度拷问</h3>
+<ul><li>✅ 每个维度至少3个核心问题</li>
+<li>✅ 每个问题有明确答案和依据</li>
+<li>✅ 最终判定有理有据</li>
+<p>
+</ul>
+</p>
+<h3>概念方案</h3>
+<ul><li>✅ 一句话说清楚核心价值</li>
+<li>✅ 边界清晰，不会过度膨胀</li>
+<li>✅ 有差异化定位</li>
+<p>
+</ul>
+</p>
+<h3>功能设计</h3>
+<ul><li>✅ 优先级分层明确</li>
+<li>✅ 功能间依赖关系清晰</li>
+<li>✅ 用户价值可感知</li>
+<p>
+</ul>
+</p>
+<h3>用户体验故事</h3>
+<ul><li>✅ 覆盖典型使用场景</li>
+<li>✅ 情绪曲线有起伏</li>
+<li>✅ 有可优化的触点</li>
+<p>
+</ul>
+</p>
+<h2>决策原则</h2>
+<p>
+1. <strong>四票通过</strong>: 至少3票为Pass才能推进
+2. <strong>关键否决</strong>: 任一维度为Reject需重新审视
+3. <strong>边界意识</strong>: 方案边界与灵感库范围匹配
+4. <strong>用户为本</strong>: 用户维度权重最高
+</p>
+<h2>与其他Agent协作</h2>
+<h3>上游</h3>
+<ul><li><strong>Inspire Specialist</strong>: 接收筛选后的候选创意</li>
+<li><strong>Reveal Specialist</strong>: 参考用户洞察</li>
+<p>
+</ul>
+</p>
+<h3>下游</h3>
+<ul><li><strong>Exam Specialist</strong>: 传递概念方案进行验证</li>
+<p>
+</ul>
+</p>
+<h2>注意事项</h2>
+<ul><li>四维度拷问要客观，不预设立场</li>
+<li>概念方案保持简洁，不堆砌功能</li>
+<li>用户体验故事要具体，不是通用描述</li>
+<li>功能优先级基于用户价值而非技术难度</li>
+<p>
+</ul>
+</p>
+<hr>
+  <hr>
+  <div class="case-block">
+    <h2>真实案例参考：Stripe 开发者支付 API</h2>
+<blockquote>完整案例来源：[innovation-case-studies.md](https://github.com/davidma1973simu/workbuddy-agents-marketplace/blob/main/innovation-case-studies.md)</blockquote>
+<h3>上游输入（Inspire 阶段输出）</h3>
+<strong>HMW</strong>：How might we 让任何开发者在几分钟内就能让网站接受在线支付，像调用 API 一样简单？
+<strong>候选创意</strong>：开发者优先的支付 API（7行代码集成），简洁SDK+丰富插件生态
+<h3>四维度拷问（实际输出）</h3>
+<strong>🔵 商业维度 → ✓Pass</strong>
+<p>
+| 拷问点 | 评估 |
+|-------|------|
+| 市场潜力 | 全球电商高速增长，在线支付是基础设施级需求，市场规模数百亿美元 |
+| 收入模型 | 按交易量收费（2.9%+30¢），边际成本极低，规模效应显著 |
+| 竞争壁垒 | 开发者生态锁定效应极强，一旦集成替换成本高 |
+| <strong>Verdict</strong> | <strong>✓ Pass</strong> |
+</p>
+<strong>👤 用户维度 → ✓Pass</strong>
+<p>
+| 拷问点 | 评估 |
+|-------|------|
+| 真实需求 | 开发者整合支付的痛苦是真实且高频的，不是伪需求 |
+| 替代方案 | PayPal API复杂，银行直接接入几乎不可能，现有方案都很痛苦 |
+| 情感价值 | 消除挫败感，让开发者专注于自己的产品而非支付基础设施 |
+| <strong>Verdict</strong> | <strong>✓ Pass</strong> |
+</p>
+<strong>⚙️ 可行维度 → ⚠️ Conditional</strong>
+<p>
+| 拷问点 | 评估 |
+|-------|------|
+| 技术实现 | 支付处理技术成熟，挑战在于合规（PCI DSS）和反欺诈 |
+| 资源需求 | 早期2人团队可启动，创始团队技术背景强 |
+| <strong>Verdict</strong> | <strong>⚠️ Conditional</strong>（需解决合规问题） |
+</p>
+<strong>🤝 利益方维度 → ✓Pass</strong>
+<p>
+| 拷问点 | 评估 |
+|-------|------|
+| 内部支持 | Collison兄弟亲历痛点，动机极强 |
+| 生态价值 | 开发者生态是正向飞轮，用的人越多越有价值 |
+| <strong>Verdict</strong> | <strong>✓ Pass</strong> |
+</p>
+<h3>概念方案（实际输出）</h3>
+<strong>一句话价值主张</strong>：让任何开发者用7行代码，在几分钟内让网站接受在线支付。
+<strong>方案边界</strong>：
+<ul><li>✅ 做：极简API + 完整支付功能 + 优秀文档 + 开发者友好工具</li>
+<li>❌ 不做：自建银行基础设施 / 面向终端消费者界面 / 线下支付</li>
+<p>
+</ul>
+</p>
+<h3>功能与特性（实际输出）</h3>
+<pre><code>{
+<p>
+  "features": [
+    {
+      "name": "支付接受API",
+      "description": "用7行代码在网站集成支付接受能力",
+      "priority": "Must",
+      "user_value": "开发者立即可以收款"
+    },
+    {
+      "name": "订阅计费",
+      "description": "支持周期性自动扣款",
+      "priority": "Must",
+      "depends_on": ["支付接受API"],
+      "user_value": "支持SaaS商业模式"
+    },
+    {
+      "name": "反欺诈（Radar）",
+      "description": "ML驱动的信用卡欺诈检测",
+      "priority": "Should",
+      "user_value": "降低拒付损失"
+    },
+    {
+      "name": "一键结账（Link）",
+      "description": "记住用户支付信息，一键完成结账",
+      "priority": "Could",
+      "user_value": "提升转化率"
+    }
+  ]
+}
+</code></pre>
+</p>
+<h3>用户体验故事（实际输出）</h3>
+<strong>故事一：开发者小张的收款时刻</strong>
+<pre><code>作为 [独立开发者小张]，
+<p>
+当 [他的SaaS产品准备上线，需要收款] 时，
+我希望 [用几行代码就接入支付]，
+以便 [专注于产品本身，而不是支付对接]。
+</p>
+<p>
+关键时刻：打开Stripe文档 → 复制7行代码 → 刷新页面 → 看到"Payment successful"
+</code></pre>
+</p>
+<strong>故事二：Shopify卖家收款时刻</strong>
+<pre><code>作为 [Shopify平台卖家]，
+<p>
+当 [有顾客在我的商店下单] 时，
+我希望 [支付过程无感、不丢单、资金快速到账]，
+以便 [专注于产品和客户服务，不用担心钱收不到]。
+</p>
+<p>
+关键时刻：顾客点击"购买" → 0摩擦付款 → 资金T+2到账
+</code></pre>
+</p>
+  </div>
+</div>
+</body>
+</html>

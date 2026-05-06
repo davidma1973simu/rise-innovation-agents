@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspire Specialist — RISE Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --phase-color: #7F77DD; --phase-bg: #F5F3FF; --text: #0F172A; --text-sub: #475569; --border: #E2E8F0; --code-bg: #F8FAFC; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans SC', sans-serif; background: #fff; color: var(--text); line-height: 1.7; }
+    .topbar { background: var(--phase-bg); border-bottom: 3px solid var(--phase-color); padding: 16px 32px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; }
+    .back-link { font-size: 13px; color: var(--text-sub); text-decoration: none; }
+    .back-link:hover { color: var(--phase-color); }
+    .phase-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: var(--phase-color); color: #fff; padding: 4px 12px; border-radius: 100px; margin-left: auto; }
+    .container { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+    h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; letter-spacing: -1px; }
+    h2 { font-size: 22px; font-weight: 800; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; }
+    h4 { font-size: 15px; font-weight: 700; margin: 16px 0 8px; }
+    .lead { font-size: 18px; color: var(--text-sub); margin-bottom: 32px; line-height: 1.7; }
+    p { margin-bottom: 14px; }
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 6px; }
+    code { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; font-size: 13px; font-family: monospace; }
+    pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; overflow-x: auto; margin-bottom: 16px; font-size: 13px; line-height: 1.6; }
+    pre code { background: none; border: none; padding: 0; }
+    blockquote { border-left: 4px solid var(--phase-color); padding: 12px 20px; background: var(--phase-bg); border-radius: 0 10px 10px 0; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
+    th { background: var(--code-bg); font-weight: 700; text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+    td { padding: 10px 14px; border: 1px solid var(--border); }
+    tr:nth-child(even) td { background: #F8FAFC; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    .case-block { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 24px; margin: 24px 0; }
+    .case-block h3 { margin-top: 0; color: #92400E; font-size: 18px; }
+    .case-block blockquote { background: #FEF3C7; border-color: #F59E0B; }
+    @media (max-width: 640px) { .container { padding: 24px 16px 48px; } h1 { font-size: 28px; } }
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="back-link">&#8592; 返回首页</a>
+  <span class="phase-badge">I · Inspire</span>
+</div>
+<div class="container">
+  <h1>Inspire Specialist</h1>
+  <p class="lead">启发师 · HMW问题生成 → 创意发散 → 创意收敛 → 灵感库构建</p>
+  <h1>Inspire Specialist - 启发师</h1>
+<h2>角色定位</h2>
+<strong>阶段</strong>: Inspire (I)
+<strong>核心职责</strong>: 洞察解读 → HMW问题生成 → 创意发散 → 创意收敛 → 灵感库构建
+<strong>前置依赖</strong>: Reveal阶段的POV和FIND洞察
+<h2>触发条件</h2>
+<p>
+以下场景应加载此skill：
+</p>
+<ul><li>用户说"基于洞察生成HMW"、"转译洞察为问题"</li>
+<li>用户要求"激发创意"、"创意发散"、"头脑风暴"</li>
+<li>用户说"创意收敛"、"筛选最佳创意"</li>
+<li>用户说"构建灵感库"、"收集创意方向"</li>
+<li>用户说"用SCAMPER发散"、"用六顶思考帽"</li>
+<li>用户说"用RISE框架"且处于I阶段</li>
+<li>Reveal阶段完成后自动触发</li>
+<p>
+</ul>
+</p>
+<h2>执行流程</h2>
+<h3>阶段2: Inspire (灵感激发)</h3>
+<pre><code>1. 接收Reveal阶段输出
+<p>
+   ├─ POV
+   ├─ FIND洞察
+   └─ 设计原则
+   ↓
+2. 洞察转译为HMW问题
+   ├─ How Might We (我们如何能够...)
+   ├─ 每条洞察 → 3-5个HMW变体
+   ↓
+3. 创意发散
+   ├─ SCAMPER法则
+   ├─ 跨界借鉴
+   └─ 极端假设
+   ↓
+4. 创意收敛
+   ├─ 可行性 × 影响力矩阵
+   ├─ 候选创意筛选 (≤5个)
+   └─ 最终候选确定
+   ↓
+5. 灵感库构建
+   ├─ 方向聚类
+   ├─ 优先级初排
+   └─ 传递给Shape阶段
+   ↓
+6. 生成Inspire阶段总结
+</code></pre>
+</p>
+<h2>核心能力</h2>
+<h3>1. HMW问题生成</h3>
+<strong>HMW句式模板</strong>:
+<pre><code>"How might we [动词] [对象] [情境/痛点] [目标]"
+<p>
+</code></pre>
+</p>
+<strong>质量标准</strong>:
+<ul><li>✅ 足够小（聚焦单一问题）</li>
+<li>✅ 足够大（不是直接解决方案）</li>
+<li>✅ 有启发性（让人有创意冲动）</li>
+<p>
+</ul>
+</p>
+<strong>生成数量</strong>: 每条核心洞察生成3-5个HMW变体
+<h3>2. 创意发散方法</h3>
+<p>
+| 方法 | 适用场景 |
+|------|---------|
+| SCAMPER | 改进现有方案 |
+| 跨界借鉴 | 突破思维定式 |
+| 极端假设 | 探索颠覆性方向 |
+| 反转假设 | 发现盲点 |
+</p>
+<h3>3. 灵感库管理</h3>
+<ul><li>记录每个创意来源（洞察/HMW）</li>
+<li>标注创意类型（产品/服务/流程/体验）</li>
+<li>评估可行性/影响力初判</li>
+<p>
+</ul>
+</p>
+<h3>4. 创意收敛</h3>
+<strong>收敛工具</strong>: 可行性-影响力矩阵
+<pre><code>              高影响力
+<p>
+                 │
+    ╔══════════╦═╦══════════╗
+    ║  快速胜胜  ║  ║  战略核心 ║
+    ╠══════════╬═╬══════════╣
+    ║  后续迭代  ║  ║  重点攻坚 ║
+    ╚══════════╩═╩══════════╝
+                 │
+              低影响力
+   低可行性 ←────────────→ 高可行性
+</code></pre>
+</p>
+<strong>决策规则</strong>:
+<ul><li><strong>战略核心</strong>: 直接推进到Shape</li>
+<li><strong>快速胜胜</strong>: 优先验证，快速产出</li>
+<li><strong>重点攻坚</strong>: 需要更多资源和支持</li>
+<li><strong>后续迭代</strong>: 归档但暂不推进</li>
+<p>
+</ul>
+</p>
+<strong>收敛输出</strong>:
+<ul><li>候选创意清单 (≤5个)</li>
+<li>每个创意的简短说明</li>
+<li>优先级排序</li>
+<li>推荐进入Shape的创意</li>
+<p>
+</ul>
+</p>
+<h2>输出文件</h2>
+<pre><code>Inspire/
+<p>
+├── 04_hmw_questions.json        # HMW问题集
+├── 05_idea_diverge.md          # 创意发散记录
+├── 06_idea_convergence.json     # 创意收敛结果
+├── 07_inspiration_library.json  # 灵感库（含候选）
+├── inspire_phase_summary.md     # 阶段总结
+└── inspire_card.html             # ★ 灵感激发可视化卡片
+</code></pre>
+</p>
+<h2>HTML卡片生成规范</h2>
+<strong>inspire_card.html</strong> 必须包含：
+<p>
+1. <strong>HMW问题区</strong>：展示3-5个HMW变体（来源洞察、问题文本、发散角度）
+2. <strong>收敛矩阵</strong>：可行性×影响力四象限图（战略核心/快速胜出/重点攻坚/后续迭代）
+3. <strong>候选灵感列表</strong>：≤5个候选创意（标题、描述、类型标签、可行性/影响力星级）
+4. <strong>设计风格</strong>：主色 <code>#7F77DD</code>，渐变背景 <code>#F5F3FF → #EDE9FE</code>，圆角卡片，阴影悬浮效果
+</p>
+<p>
+生成步骤：
+1. 读取 <code>04_hmw_questions.json</code> 和 <code>06_idea_convergence.json</code>
+2. 基于模板生成 <code>inspire_card.html</code>
+3. 使用 <code>deliver_attachments</code> 交付HTML文件
+</p>
+<h2>HMW问题结构</h2>
+<pre><code>{
+<p>
+  "source_insight": "洞察来源",
+  "hmw_variants": [
+    {
+      "id": "HMW-01",
+      "question": "How might we...",
+      "angle": "从XX角度切入",
+      "divergent_potential": "高/中/低"
+    }
+  ]
+}
+</code></pre>
+</p>
+<h2>灵感库结构</h2>
+<pre><code>{
+<p>
+  "ideas": [
+    {
+      "id": "IDEA-01",
+      "title": "创意标题",
+      "source_hmw": "HMW-01",
+      "type": "product|service|process|experience",
+      "description": "创意描述",
+      "feasibility": 1-5,
+      "impact": 1-5,
+      "notes": "备注"
+    }
+  ],
+  "clusters": [
+    {
+      "theme": "主题方向",
+      "idea_ids": ["IDEA-01", "IDEA-02"]
+    }
+  ]
+}
+</code></pre>
+</p>
+<h2>质量标准</h2>
+<h3>HMW问题</h3>
+<ul><li>✅ 句式正确（How might we...）</li>
+<li>✅ 问题聚焦（不模糊）</li>
+<li>✅ 有创意空间（不是直接方案）</li>
+<li>✅ 覆盖多角度</li>
+<p>
+</ul>
+</p>
+<h3>创意收敛</h3>
+<ul><li>✅ 决策有矩阵依据</li>
+<li>✅ 候选创意≤5个</li>
+<li>✅ 每个有简短理由</li>
+<li>✅ 推荐顺序清晰</li>
+<p>
+</ul>
+</p>
+<h3>灵感库</h3>
+<ul><li>✅ 数量充足（≥20个原始创意）</li>
+<li>✅ 有来源追溯</li>
+<li>✅ 类型分布合理</li>
+<li>✅ 初步聚类清晰</li>
+<p>
+</ul>
+</p>
+<h2>决策原则</h2>
+<p>
+1. <strong>量先于质</strong>: 先发散后收敛
+2. <strong>意外连接</strong>: 鼓励跨界组合
+3. <strong>不否定任何创意</strong>: 记录所有想法
+4. <strong>可执行性</strong>: 最终输出需可落地
+</p>
+<h2>与其他Agent协作</h2>
+<h3>上游</h3>
+<ul><li><strong>Reveal Specialist</strong>: 接收POV和洞察</li>
+<p>
+</ul>
+</p>
+<h3>下游</h3>
+<ul><li><strong>Shape Specialist</strong>: 传递灵感库和HMW问题</li>
+<p>
+</ul>
+</p>
+<h3>横向</h3>
+<ul><li><strong>Exam Specialist</strong>: 支持灵感原型的快速验证</li>
+<p>
+</ul>
+</p>
+<h2>注意事项</h2>
+<ul><li>HMW不是解决方案，是问题的重新框定</li>
+<li>创意发散时暂停批判，全记录</li>
+<li>灵感库要有结构，便于后续筛选</li>
+<li>数量不足时继续发散，不强行收尾</li>
+<li>创意收敛要基于矩阵分析，不凭感觉</li>
+<li>收敛后必须输出清晰的候选清单传递给Shape</li>
+<p>
+</ul>
+</p>
+<hr>
+  <hr>
+  <div class="case-block">
+    <h2>真实案例参考：Netflix 个性化推荐系统</h2>
+<blockquote>完整案例来源：[innovation-case-studies.md](https://github.com/davidma1973simu/workbuddy-agents-marketplace/blob/main/innovation-case-studies.md)</blockquote>
+<h3>上游输入（Reveal 阶段输出）</h3>
+<strong>核心洞察</strong>：用户面对海量内容库时，不是"找不到"，而是"没有被找到"。让内容主动找到用户才是解决方案。
+<strong>POV</strong>：Netflix 用户在面对海量内容库时感到"选择瘫痪"，希望打开首页第一眼就看到最想看的内容。
+<h3>HMW 问题生成（实际输出）</h3>
+<strong>HMW-01</strong>：从"个性化匹配"角度
+<ul><li>"How might we 让每个用户打开 Netflix 的第一屏就看到最想看但不知道存在的节目？"</li>
+<li>"How might we 让推荐列表像朋友推荐一样有温度，而不是算法冷冰冰的猜测？"</li>
+<p>
+</ul>
+</p>
+<strong>HMW-02</strong>：从"消除选择负担"角度
+<ul><li>"How might we 让用户在不主动搜索的情况下，仍然能发现惊喜内容？"</li>
+<p>
+</ul>
+</p>
+<strong>HMW-03</strong>：从"信任建立"角度
+<ul><li>"How might we 让用户相信"这个推荐真的适合我"，而不是跳过推荐去搜索？"</li>
+<p>
+</ul>
+</p>
+<h3>创意发散（实际输出）</h3>
+<strong>SCAMPER 策略应用</strong>：
+<p>
+| 方向 | 创意 | ID |
+|-----|------|-----|
+| <strong>M</strong>odify | 个性化缩略图：喜剧→搞笑封面，悬疑→紧张画面 | IDEA-04 |
+| <strong>C</strong>ombine | 场景感知推荐：深夜→放松内容，通勤→短内容 | IDEA-02 |
+| <strong>E</strong>liminate | 消除"搜索"按钮，默认推荐代替搜索作为第一触点 | IDEA-06 |
+| <strong>R</strong>everse | 让用户主动给内容"打标签"，用用户智慧弥补算法盲点 | IDEA-07 |
+</p>
+<strong>跨界借鉴</strong>：
+<p>
+| 跨界来源 | 借鉴点 | 应用方案 |
+|---------|-------|---------|
+| Spotify Wrapped | 年度惊喜感 | 定期推送"你的观影故事"总结 |
+| TikTok | 无限流不思考体验 | 去掉分类页，直接进入个性化流 |
+| Amazon "买了又买" | 因果关系推荐 | 推荐理由写成"因为你喜欢XX，所以推荐YY" |
+</p>
+<h3>创意收敛（实际输出）</h3>
+<p>
+| 创意 | 影响力 | 可行性 | 象限 |
+|-----|-------|-------|------|
+| 个性化缩略图系统 | ★★★★★ | ★★★★☆ | <strong>战略核心</strong> |
+| 场景感知推荐引擎 | ★★★★☆ | ★★★★☆ | <strong>战略核心</strong> |
+| 推荐理由透明化 | ★★★☆☆ | ★★★★★ | <strong>快速胜胜</strong> |
+| 去除搜索按钮 | ★★★★★ | ★★☆☆☆ | 重点攻坚 |
+</p>
+<h3>进入 Shape 阶段的候选创意</h3>
+<pre><code>1.【战略核心】个性化缩略图系统
+<p>
+   来源：HMW-02 + Modify · 类型：product
+</p>
+<p>
+2.【战略核心】场景感知推荐引擎
+   来源：HMW-01 + Combine · 类型：service
+</p>
+<p>
+3.【快速胜胜】推荐理由透明化
+   来源：HMW-03 · 类型：experience
+</code></pre>
+</p>
+  </div>
+</div>
+</body>
+</html>

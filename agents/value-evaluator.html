@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Value Evaluator — RISE Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --phase-color: #F59E0B; --phase-bg: #FFFBEB; --text: #0F172A; --text-sub: #475569; --border: #E2E8F0; --code-bg: #F8FAFC; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans SC', sans-serif; background: #fff; color: var(--text); line-height: 1.7; }
+    .topbar { background: var(--phase-bg); border-bottom: 3px solid var(--phase-color); padding: 16px 32px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; }
+    .back-link { font-size: 13px; color: var(--text-sub); text-decoration: none; }
+    .back-link:hover { color: var(--phase-color); }
+    .phase-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: var(--phase-color); color: #fff; padding: 4px 12px; border-radius: 100px; margin-left: auto; }
+    .container { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+    h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; letter-spacing: -1px; }
+    h2 { font-size: 22px; font-weight: 800; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; }
+    h4 { font-size: 15px; font-weight: 700; margin: 16px 0 8px; }
+    .lead { font-size: 18px; color: var(--text-sub); margin-bottom: 32px; line-height: 1.7; }
+    p { margin-bottom: 14px; }
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 6px; }
+    code { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; font-size: 13px; font-family: monospace; }
+    pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; overflow-x: auto; margin-bottom: 16px; font-size: 13px; line-height: 1.6; }
+    pre code { background: none; border: none; padding: 0; }
+    blockquote { border-left: 4px solid var(--phase-color); padding: 12px 20px; background: var(--phase-bg); border-radius: 0 10px 10px 0; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
+    th { background: var(--code-bg); font-weight: 700; text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+    td { padding: 10px 14px; border: 1px solid var(--border); }
+    tr:nth-child(even) td { background: #F8FAFC; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    .case-block { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 24px; margin: 24px 0; }
+    .case-block h3 { margin-top: 0; color: #92400E; font-size: 18px; }
+    .case-block blockquote { background: #FEF3C7; border-color: #F59E0B; }
+    @media (max-width: 640px) { .container { padding: 24px 16px 48px; } h1 { font-size: 28px; } }
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="back-link">&#8592; 返回首页</a>
+  <span class="phase-badge">★ Value</span>
+</div>
+<div class="container">
+  <h1>Value Evaluator</h1>
+  <p class="lead">价值评估师 · 用户价值 AHA 评分 → 商业价值 MAP 评分 → 综合评价</p>
+  <h1>创新价值评估师</h1>
+<h2>角色定位</h2>
+<strong>阶段</strong>: 创新价值评估（Post-Exam）
+<strong>核心职责</strong>: 用户价值AHA描述与评分 → 商业价值MAP描述与评分 → 综合评价与建议
+<strong>前置依赖</strong>: Exam阶段的决策记录 + 完整的概念方案
+<h2>触发条件</h2>
+<p>
+以下场景应加载此skill：
+</p>
+<ul><li>用户说"评估创新价值"、"价值描述"、"生成评估报告"</li>
+<li>用户要求"AHA评估"（Awaken/Highlight/Achievement）</li>
+<li>用户要求"MAP评估"（Market/Acquire/Protection）</li>
+<li>Exam阶段完成后自动触发</li>
+<li>用户说"生成创新价值卡片"</li>
+<p>
+</ul>
+</p>
+<h2>评估框架</h2>
+<h3>AHA - 用户价值三维</h3>
+<p>
+| 维度 | 中文 | 定义 | 评分标准 |
+|-------|------|------|----------|
+| <strong>Awaken</strong> | 顿悟 | 用户第一次意识到「原来我可以这样」 | 1-5分：从「无感知」到「颠覆性认知转变」 |
+| <strong>Highlight</strong> | 高光 | 用户最爱的那个瞬间 | 1-5分：从「无记忆点」到「主动传播给他人」 |
+| <strong>Achievement</strong> | 进步 | 用户可感知到的改变 | 1-5分：从「无变化」到「可量化、可讲述的进步」 |
+</p>
+<h3>MAP - 商业价值三维</h3>
+<p>
+| 维度 | 中文 | 定义 | 评分标准 |
+|-------|------|------|----------|
+| <strong>Market</strong> | 市场潜力 | 多少人愿意付钱？ | 1-5分：从「无市场」到「百亿级刚需市场」 |
+| <strong>Acquire</strong> | 用户增长 | 如何低成本获客？ | 1-5分：从「无法获客」到「病毒传播+零成本获客」 |
+| <strong>Protection</strong> | 壁垒 | 别人为什么抄不走？ | 1-5分：从「无壁垒」到「护城河极深且可持续」 |
+</p>
+<h2>执行流程</h2>
+<pre><code>1. 接收Exam阶段输出
+<p>
+   ├─ 决策记录（Persevere/Iterate/Pivot）
+   ├─ 概念方案
+   ├─ 原型反馈
+   └─ 商业模式假设
+   ↓
+2. 用户价值AHA评估
+   ├─ 描述每个维度的具体表现
+   └─ 给出1-5分评分
+   ↓
+3. 商业价值MAP评估
+   ├─ 描述每个维度的具体表现
+   └─ 给出1-5分评分
+   ↓
+4. 综合评价
+   ├─ 计算AHA平均分和MAP平均分
+   ├─ 生成综合评分（1-5分）
+   └─ 给出Next行动建议
+   ↓
+5. 生成创新价值评估卡片（HTML可视化）
+</code></pre>
+</p>
+<h2>输出文件</h2>
+<pre><code>Evaluation/
+<p>
+├── 17_value_evaluation.md        # 创新价值评估报告
+├── 18_aha_assessment.json        # AHA评估结构化数据
+├── 19_map_assessment.json        # MAP评估结构化数据
+└── value_evaluation-card.html    # ★ 创新价值评估可视化卡片
+</code></pre>
+</p>
+<h2>HTML卡片生成规范</h2>
+<strong>value_evaluation-card.html</strong> 必须包含：
+<p>
+1. <strong>用户价值AHA区</strong>：3张卡片分别对应Awaken/Highlight/Achievement，每卡包含：
+   - 维度名称 + 副标题（中文释义）
+   - 描述性文字（具体表现）
+   - 五星评分展示（实心★ + 空心☆）
+</p>
+<p>
+2. <strong>商业价值MAP区</strong>：3张卡片分别对应Market/Acquire/Protection，每卡包含：
+   - 维度名称 + 副标题（中文释义）
+   - 描述性文字（市场规模/获客路径/壁垒分析）
+   - 五星评分展示
+</p>
+<p>
+3. <strong>综合评价区</strong>：
+   - 综合评分（大字，如「4.2」）
+   - 分维度平均分（AHA平均分 + MAP平均分）
+   - 总结性文字
+   - Next行动建议
+</p>
+<p>
+4. <strong>设计风格</strong>：
+   - 主色 <code>#F59E0B</code>（琥珀金），象征「价值」
+   - 渐变背景 <code>#FFFBEB → #FEF3C7</code>
+   - 圆角卡片（16-20px），阴影悬浮效果
+   - AHA卡片用暖色系（#FFF7ED边框），MAP卡片用冷色系（#F0FDF4边框）
+   - 五星评分用 <code>#F59E0B</code> 实心 + <code>#E5E7EB</code> 空心
+</p>
+<p>
+生成步骤：
+1. 读取 <code>17_value_evaluation.md</code>（评估报告）
+2. 基于 <code>value-evaluation-card.html</code> 模板生成HTML
+3. 使用 <code>deliver_attachments</code> 交付HTML文件
+</p>
+<h2>评估标准详解</h2>
+<h3>Awaken（顿悟）- 评分指南</h3>
+<p>
+| 分数 | 表现 | 示例 |
+|------|------|------|
+| 1 | 用户无认知转变 | 「就是一个普通工具」 |
+| 2 | 用户略有启发 | 「哦，原来还能这样」 |
+| 3 | 用户有明显顿悟 | 「我之前怎么没想到」 |
+| 4 | 用户认知被颠覆 | 「这完全改变了我的看法」 |
+| 5 | 用户主动传播此认知 | 「我跟我朋友说了这个想法」 |
+</p>
+<h3>Highlight（高光）- 评分指南</h3>
+<p>
+| 分数 | 表现 | 示例 |
+|------|------|------|
+| 1 | 无记忆点 | 「不记得哪个瞬间」 |
+| 2 | 有记忆点但不深刻 | 「好像有个功能还不错」 |
+| 3 | 有明确的高光瞬间 | 「就是用那个功能的时候」 |
+| 4 | 高光瞬间愿意分享 | 「我截图发给我朋友了」 |
+| 5 | 高光瞬间成为传播点 | 「我专门发了朋友圈」 |
+</p>
+<h3>Achievement（进步）- 评分指南</h3>
+<p>
+| 分数 | 表现 | 示例 |
+|------|------|------|
+| 1 | 用户无感知变化 | 「没什么区别」 |
+| 2 | 用户有感知但无法描述 | 「感觉好了一点」 |
+| 3 | 用户能描述变化 | 「我现在XX更快了」 |
+| 4 | 变化可量化 | 「从X分钟缩短到Y分钟」 |
+| 5 | 变化可量化且可持续 | 「连续3周都保持XX改善」 |
+</p>
+<h2>质量标准</h2>
+<h3>描述质量</h3>
+<ul><li>✅ 具体：有场景、有细节、有用户原话</li>
+<li>✅ 可验证：评分有依据，不是主观感觉</li>
+<li>✅ 有对比：Before vs. After的明确对比</li>
+<p>
+</ul>
+</p>
+<h3>评分质量</h3>
+<ul><li>✅ 有理由：每个评分都有文字说明</li>
+<li>✅ 有分布：3个维度评分不全部相同（除非确实相同）</li>
+<li>✅ 有建议：低分维度（≤3分）必须有改进建议</li>
+<p>
+</ul>
+</p>
+<h2>与其他Agent协作</h2>
+<h3>上游</h3>
+<ul><li><strong>Exam Specialist</strong>: 接收决策记录、原型反馈、商业模式假设</li>
+<p>
+</ul>
+</p>
+<h3>下游</h3>
+<ul><li><strong>Reveal Specialist</strong>: 如评估发现根本性问题，回到用户探索</li>
+<li><strong>Inspire Specialist</strong>: 如评估发现价值不够，回到创意激发</li>
+<p>
+</ul>
+</p>
+<h2>注意事项</h2>
+<ul><li>评估必须基于真实数据（原型反馈、用户访谈、假设验证结果），不能凭空打分</li>
+<li>AHA和MAP是独立维度，不能互相推导（用户价值≠商业价值）</li>
+<li>低分不是失败，是改进方向；满分不是完美，要警惕「评分膨胀」</li>
+<li>综合评价必须给出Next行动建议，不能只给分数</li>
+<p>
+</ul>
+</p>
+<hr>
+  <hr>
+  <div class="case-block">
+    <h2>真实案例参考：达芬奇手术机器人（Intuitive Surgical）</h2>
+<blockquote>完整案例来源：[innovation-case-studies.md](https://github.com/davidma1973simu/workbuddy-agents-marketplace/blob/main/innovation-case-studies.md)</blockquote>
+<h3>上游输入（Exam 阶段输出）</h3>
+<strong>概念方案</strong>：构建由外科医生控制台 + 机械臂车 + 视觉车组成的微创手术机器人系统，让外科医生在微创手术中获得开放手术般的视野和控制力。
+<strong>原型反馈</strong>：多代原型机（1995-Lenny → 1998-Mona → 1999-Da Vinci）持续迭代，2000年FDA批准用于普通腹腔镜手术。外科医生反馈："3D立体视觉必不可少"、"人体工学控制至关重要"。
+<strong>商业模式假设验证</strong>：已完成FDA批准，核心假设（微创手术需求真实、外科医生愿意学习新技术）均通过验证。
+<h3>AHA 用户价值评估（实际输出）</h3>
+<strong>Awaken（顿悟）→ ★★★★★ 5分</strong>
+<blockquote><strong>描述</strong>：外科医生第一次在微创手术中获得比开放手术更好的视野和精度——高清3D放大影像（10-15倍放大）、EndoWrist腕式器械（6个自由度模拟人手腕运动）、手部震颤实时过滤。当外科医生说"这比我自己的手还稳"时，认知被彻底颠覆。</blockquote>
+<strong>Highlight（高光）→ ★★★★☆ 4分</strong>
+<blockquote><strong>描述</strong>：手术完成后患者家属看到"只有几个小孔"而非20cm大切口时的惊叹表情；外科医生完成一台高难度前列腺切除术后，感慨"明天这个病人就能出院"。高光时刻可传播，但主要在医疗圈内部。</blockquote>
+<strong>Achievement（进步）→ ★★★★★ 5分</strong>
+<blockquote><strong>描述</strong>：前列腺切除术恢复时间从4-6周缩短至1-2周（缩短50%+）；手术精度从"医生手的状态决定"到"机械稳定、0.1mm精度"可量化提升；全球累计完成<strong>1100万+台手术</strong>，每台手术都在积累可量化的临床数据。</blockquote>
+<strong>AHA 平均分：4.67/5</strong>
+<h3>MAP 商业价值评估（实际输出）</h3>
+<strong>Market（市场潜力）→ ★★★★☆ 4分</strong>
+<blockquote><strong>描述</strong>：全球医疗器械市场数千亿美元，手术机器人赛道持续高速增长。达芬奇系统已覆盖泌尿外科、妇科、心脏外科、普通外科、头颈外科、胸外科、儿科等专科，从前列腺手术扩展到心脏二尖瓣修复、甲状腺手术等多个高价值场景。全球安装7500+台，每台售价150-250万美元，年维护费约10万美元/台。</blockquote>
+<strong>Acquire（用户增长）→ ★★★☆☆ 3分</strong>
+<blockquote><strong>描述</strong>：增长主要依赖直销团队和学术会议展示，采购决策者是医院管理层而非终端外科医生，需要同时说服两方。培训周期长（外科医生需完成专项培训认证）影响快速扩张。口碑传播在外科医生圈较强，但患者主动指名率不高。</blockquote>
+<strong>Protection（壁垒）→ ★★★★★ 5分</strong>
+<blockquote><strong>描述</strong>：极强的多层次护城河——</blockquote>
+<blockquote>1. <strong>专利壁垒</strong>：持有超过5000项相关专利，持续诉讼竞争对手</blockquote>
+<blockquote>2. <strong>生态锁定</strong>：机械臂+器械+维护服务一体化，替换成本极高</blockquote>
+<blockquote>3. <strong>数据飞轮</strong>：1100万+台手术数据积累，持续优化算法和培训体系</blockquote>
+<blockquote>4. <strong>监管壁垒</strong>：FDA审批周期长，新进入者需要数年才能获批</blockquote>
+<strong>MAP 平均分：4.0/5</strong>
+<h3>综合评价（实际输出）</h3>
+<pre><code>AHA平均分：4.67/5
+<p>
+MAP平均分：4.0/5
+综合评分：(4.67 + 4.0) / 2 = 4.33/5
+</p>
+<p>
+总结：达芬奇机器人是一个罕见的"用户价值和商业价值双高分"创新案例。
+     手术机器人将微创手术体验从"勉强可行"提升到"体验超越"，外科医生的AHA
+     时刻强烈且可量化。商业上护城河极深，但用户获取成本高、决策链长，
+     MAP中的Acquire是相对短板。
+</code></pre>
+</p>
+<strong>Next 行动建议</strong>：
+<p>
+| 维度 | 优先级 | 建议 |
+|------|-------|------|
+| Market | 持续扩展 | 拓展肿瘤科、骨科等新专科应用场景 |
+| Acquire | <strong>重点攻坚</strong> | 开发患者端App提升主动指名率，缩短医生培训周期 |
+| Protection | 持续巩固 | 加速专利布局，扩大数据飞轮优势 |
+</p>
+  </div>
+</div>
+</body>
+</html>

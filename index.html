@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RISE Innovation Agents — 价值创新AI Agent系统</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --reveal: #E07A2F;
+      --reveal-bg: #FFF5EB;
+      --inspire: #7F77DD;
+      --inspire-bg: #F5F3FF;
+      --shape: #0F6E56;
+      --shape-bg: #E8F5E9;
+      --exam: #64748B;
+      --exam-bg: #F1F5F9;
+      --value: #F59E0B;
+      --value-bg: #FFFBEB;
+      --text: #0F172A;
+      --text-sub: #475569;
+      --border: #E2E8F0;
+      --card-bg: #FFFFFF;
+      --hero-gradient: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans SC', 'Inter', sans-serif;
+      background: #F8FAFC;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--hero-gradient);
+      padding: 80px 24px 100px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 28px;
+      letter-spacing: 0.5px;
+    }
+    .hero-badge span { color: var(--value); font-weight: 600; }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .hero h1 .accent { color: var(--reveal); }
+    .hero h1 .accent2 { color: var(--inspire); }
+    .hero h1 .accent3 { color: var(--shape); }
+    .hero p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.6);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      display: block;
+    }
+    .hero-stat .label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ===== RISE FLOW ===== */
+    .rise-flow {
+      background: #fff;
+      padding: 60px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .rise-flow-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .rise-flow h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-sub);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .flow-steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .flow-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 28px;
+      border-radius: 16px;
+      transition: transform 0.2s;
+    }
+    .flow-step:hover { transform: translateY(-4px); }
+    .flow-step .letter {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .flow-step .flow-label { font-size: 14px; font-weight: 600; }
+    .flow-step .flow-sub { font-size: 12px; color: var(--text-sub); margin-top: 2px; }
+    .flow-arrow {
+      font-size: 20px;
+      color: var(--border);
+      padding: 0 4px;
+      flex-shrink: 0;
+    }
+    .fr { color: var(--reveal); }
+    .fi { color: var(--inspire); }
+    .fs { color: var(--shape); }
+    .fe { color: var(--exam); }
+    .fv { color: var(--value); }
+
+    /* ===== SECTION HEADER ===== */
+    .section-header {
+      max-width: 1100px;
+      margin: 60px auto 0;
+      padding: 0 24px;
+    }
+    .section-header h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .section-header p {
+      color: var(--text-sub);
+      font-size: 16px;
+    }
+
+    /* ===== AGENT CARDS ===== */
+    .agents-grid {
+      max-width: 1100px;
+      margin: 28px auto 0;
+      padding: 0 24px 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .agent-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .agent-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+    .agent-card-header {
+      padding: 24px 24px 20px;
+      position: relative;
+    }
+    .agent-card-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+    .agent-card[data-phase="reveal"] .agent-card-header::after { background: var(--reveal); }
+    .agent-card[data-phase="inspire"] .agent-card-header::after { background: var(--inspire); }
+    .agent-card[data-phase="shape"] .agent-card-header::after { background: var(--shape); }
+    .agent-card[data-phase="exam"] .agent-card-header::after { background: var(--exam); }
+    .agent-card[data-phase="value"] .agent-card-header::after { background: var(--value); }
+
+    .agent-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .agent-phase {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      color: #fff;
+    }
+    .agent-card[data-phase="reveal"] .agent-phase { background: var(--reveal); }
+    .agent-card[data-phase="inspire"] .agent-phase { background: var(--inspire); }
+    .agent-card[data-phase="shape"] .agent-phase { background: var(--shape); }
+    .agent-card[data-phase="exam"] .agent-phase { background: var(--exam); }
+    .agent-card[data-phase="value"] .agent-phase { background: var(--value); }
+
+    .agent-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+    }
+    .agent-card[data-phase="reveal"] .agent-icon { background: var(--reveal-bg); color: var(--reveal); }
+    .agent-card[data-phase="inspire"] .agent-icon { background: var(--inspire-bg); color: var(--inspire); }
+    .agent-card[data-phase="shape"] .agent-icon { background: var(--shape-bg); color: var(--shape); }
+    .agent-card[data-phase="exam"] .agent-icon { background: var(--exam-bg); color: var(--exam); }
+    .agent-card[data-phase="value"] .agent-icon { background: var(--value-bg); color: var(--value); }
+
+    .agent-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .agent-role {
+      font-size: 13px;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    .agent-card-body {
+      padding: 0 24px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .agent-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      margin-bottom: 18px;
+      flex: 1;
+    }
+    .agent-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .agent-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: #F1F5F9;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+    .agent-example {
+      background: #F8FAFC;
+      border-radius: 12px;
+      padding: 14px;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+    .agent-example-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+    .agent-example-text {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .agent-example-text strong { color: var(--value); }
+
+    .agent-card-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .agent-triggers {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+    .agent-triggers strong {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+    .agent-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      padding: 8px 16px;
+      border-radius: 10px;
+    }
+    .agent-link:hover { transform: scale(1.05); }
+    .agent-card[data-phase="reveal"] .agent-link { background: var(--reveal); color: #fff; }
+    .agent-card[data-phase="inspire"] .agent-link { background: var(--inspire); color: #fff; }
+    .agent-card[data-phase="shape"] .agent-link { background: var(--shape); color: #fff; }
+    .agent-card[data-phase="exam"] .agent-link { background: var(--exam); color: #fff; }
+    .agent-card[data-phase="value"] .agent-link { background: var(--value); color: #fff; }
+
+    /* ===== CASES SECTION ===== */
+    .cases-section {
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 60px 24px;
+    }
+    .cases-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .case-chip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 18px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .case-chip:hover {
+      border-color: var(--value);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(245,158,11,0.15);
+    }
+    .case-chip-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--value-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .case-chip-info { flex: 1; min-width: 0; }
+    .case-chip-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .case-chip-tag { font-size: 11px; color: var(--text-sub); margin-top: 2px; }
+
+    /* ===== CTA ===== */
+    .cta-section {
+      background: var(--hero-gradient);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .cta-section p {
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 32px;
+      font-size: 16px;
+    }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .cta-btn-primary { background: var(--reveal); color: #fff; }
+    .cta-btn-primary:hover { background: #c96820; transform: translateY(-2px); }
+    .cta-btn-secondary {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .cta-btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0F172A;
+      padding: 28px 24px;
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 13px;
+    }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: #fff; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .hero { padding: 60px 20px 80px; }
+      .hero h1 { letter-spacing: -1px; }
+      .hero-stats { gap: 24px; }
+      .flow-arrow { display: none; }
+      .flow-steps { gap: 12px; }
+      .flow-step { padding: 14px 16px; }
+      .agents-grid { grid-template-columns: 1fr; }
+      .cases-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-badge">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      5个专业AI Agent · RISE创新框架 · 开源免费
+    </div>
+    <h1>
+      <span class="accent">R</span><span class="accent2">I</span><span class="accent3">S</span>E<br>
+      Innovation Agents
+    </h1>
+    <p>基于 RISE 四阶段价值创新框架的 AI Agent 系统，赋能你完成从用户洞察到创新验证的完整旅程。</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="num">5</span>
+        <span class="label">专业 Agent</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">4</span>
+        <span class="label">创新阶段</span>
+      </div>
+      <div class="hero-stat">
+        <span class="num">MIT</span>
+        <span class="label">开源许可</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FLOW ===== -->
+  <section class="rise-flow">
+    <div class="rise-flow-inner">
+      <h2>四阶段 · 价值创新框架</h2>
+      <div class="flow-steps">
+        <div class="flow-step" style="background: var(--reveal-bg);">
+          <span class="letter fr">R</span>
+          <span class="flow-label fr">Reveal</span>
+          <span class="flow-sub">洞察官</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step" style="background: var(--inspire-bg);">
+          <span class="letter fi">I</span>
+          <span class="flow-label fi">Inspire</span>
+          <span class="flow-sub">启发师</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step" style="background: var(--shape-bg);">
+          <span class="letter fs">S</span>
+          <span class="flow-label fs">Shape</span>
+          <span class="flow-sub">架构师</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step" style="background: var(--exam-bg);">
+          <span class="letter fe">E</span>
+          <span class="flow-label fe">Exam</span>
+          <span class="flow-sub">验证官</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step" style="background: var(--value-bg);">
+          <span class="letter fv">★</span>
+          <span class="flow-label fv">Value</span>
+          <span class="flow-sub">价值评估</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION HEADER ===== -->
+  <div class="section-header">
+    <h2>选择你的创新伙伴</h2>
+    <p>每个 Agent 专注一个阶段，内置真实创新案例作为参考标准。</p>
+  </div>
+
+  <!-- ===== AGENT CARDS ===== -->
+  <div class="agents-grid">
+
+    <!-- Reveal -->
+    <div class="agent-card" data-phase="reveal">
+      <div class="agent-card-header">
+        <div class="agent-badge-row">
+          <span class="agent-phase">R · Reveal</span>
+          <div class="agent-icon">🔍</div>
+        </div>
+        <div class="agent-name">Reveal Specialist</div>
+        <div class="agent-role">洞察官 · 用户探索与洞察挖掘</div>
+      </div>
+      <div class="agent-card-body">
+        <div class="agent-desc">从项目启动到用户洞察挖掘，构建清晰的用户 POV 与利益相关方分析。</div>
+        <div class="agent-tags">
+          <span class="agent-tag">FIND 模型</span>
+          <span class="agent-tag">POV 构建</span>
+          <span class="agent-tag">利益相关方</span>
+        </div>
+        <div class="agent-example">
+          <div class="agent-example-label">真实案例</div>
+          <div class="agent-example-text">
+            Netflix 发现 <strong>75% 观看活动</strong> 由推荐驱动 → 洞察：用户不是"找不到"，而是"没有被找到"。
+          </div>
+        </div>
+        <div class="agent-triggers">
+          <strong>触发词</strong>
+          启动创新项目 · 生成洞察 · FIND分析
+        </div>
+      </div>
+      <div class="agent-card-footer">
+        <span class="agent-triggers"></span>
+        <a href="agents/reveal-specialist.html" class="agent-link" target="_blank">
+          查看 Agent →
+        </a>
+      </div>
+    </div>
+
+    <!-- Inspire -->
+    <div class="agent-card" data-phase="inspire">
+      <div class="agent-card-header">
+        <div class="agent-badge-row">
+          <span class="agent-phase">I · Inspire</span>
+          <div class="agent-icon">💡</div>
+        </div>
+        <div class="agent-name">Inspire Specialist</div>
+        <div class="agent-role">启发师 · HMW问题与创意发散</div>
+      </div>
+      <div class="agent-card-body">
+        <div class="agent-desc">将洞察转译为 HMW 问题，通过 SCAMPER + 跨界借鉴激发创意，最终收敛为 ≤5 个候选灵感。</div>
+        <div class="agent-tags">
+          <span class="agent-tag">HMW 生成</span>
+          <span class="agent-tag">SCAMPER</span>
+          <span class="agent-tag">跨界借鉴</span>
+        </div>
+        <div class="agent-example">
+          <div class="agent-example-label">真实案例</div>
+          <div class="agent-example-text">
+            Netflix 缩略图个性化（喜剧→搞笑封面，悬疑→紧张画面），跨界借鉴 <strong>Spotify Wrapped</strong> 惊喜感。
+          </div>
+        </div>
+        <div class="agent-triggers">
+          <strong>触发词</strong>
+          生成HMW · 激发创意 · 创意收敛
+        </div>
+      </div>
+      <div class="agent-card-footer">
+        <span class="agent-triggers"></span>
+        <a href="agents/inspire-specialist.html" class="agent-link" target="_blank">
+          查看 Agent →
+        </a>
+      </div>
+    </div>
+
+    <!-- Shape -->
+    <div class="agent-card" data-phase="shape">
+      <div class="agent-card-header">
+        <div class="agent-badge-row">
+          <span class="agent-phase">S · Shape</span>
+          <div class="agent-icon">🏗️</div>
+        </div>
+        <div class="agent-name">Shape Specialist</div>
+        <div class="agent-role">架构师 · 四维度拷问与概念设计</div>
+      </div>
+      <div class="agent-card-body">
+        <div class="agent-desc">从商业/用户/可行/利益方四个维度拷问创意，构建概念方案，设计功能优先级与用户体验故事。</div>
+        <div class="agent-tags">
+          <span class="agent-tag">四维度拷问</span>
+          <span class="agent-tag">概念方案</span>
+          <span class="agent-tag">UX故事</span>
+        </div>
+        <div class="agent-example">
+          <div class="agent-example-label">真实案例</div>
+          <div class="agent-example-text">
+            Stripe 7行代码集成支付 → 开发者痛点是真实需求，PCI合规是Conditional风险，概念：<strong>支付是互联网水电煤</strong>。
+          </div>
+        </div>
+        <div class="agent-triggers">
+          <strong>触发词</strong>
+          方案拷问 · 四维度审视 · UX故事
+        </div>
+      </div>
+      <div class="agent-card-footer">
+        <span class="agent-triggers"></span>
+        <a href="agents/shape-specialist.html" class="agent-link" target="_blank">
+          查看 Agent →
+        </a>
+      </div>
+    </div>
+
+    <!-- Exam -->
+    <div class="agent-card" data-phase="exam">
+      <div class="agent-card-header">
+        <div class="agent-badge-row">
+          <span class="agent-phase">E · Exam</span>
+          <div class="agent-icon">🎯</div>
+        </div>
+        <div class="agent-name">Exam Specialist</div>
+        <div class="agent-role">验证官 · 原型反馈与迭代决策</div>
+      </div>
+      <div class="agent-card-body">
+        <div class="agent-desc">收集原型反馈，设计 60 秒电梯演讲，验证商业模式假设，给出 Persevere/Iterate/Pivot 决策。</div>
+        <div class="agent-tags">
+          <span class="agent-tag">原型反馈</span>
+          <span class="agent-tag">电梯演讲</span>
+          <span class="agent-tag">Pivot决策</span>
+        </div>
+        <div class="agent-example">
+          <div class="agent-example-label">真实案例</div>
+          <div class="agent-example-text">
+            Duolingo A/B测试：完成第一天成就者14日留存 <strong>33.4%</strong> vs 未完成者 <strong>20.4%</strong> → 决策：Persevere，加码游戏化。
+          </div>
+        </div>
+        <div class="agent-triggers">
+          <strong>触发词</strong>
+          原型反馈 · 电梯演讲 · 商业模式假设
+        </div>
+      </div>
+      <div class="agent-card-footer">
+        <span class="agent-triggers"></span>
+        <a href="agents/exam-specialist.html" class="agent-link" target="_blank">
+          查看 Agent →
+        </a>
+      </div>
+    </div>
+
+    <!-- Value -->
+    <div class="agent-card" data-phase="value">
+      <div class="agent-card-header">
+        <div class="agent-badge-row">
+          <span class="agent-phase">★ Value</span>
+          <div class="agent-icon">🏆</div>
+        </div>
+        <div class="agent-name">Value Evaluator</div>
+        <div class="agent-role">价值评估师 · AHA × MAP 双维评估</div>
+      </div>
+      <div class="agent-card-body">
+        <div class="agent-desc">从用户价值（AHA：顿悟/高光/进步）和商业价值（MAP：市场/增长/壁垒）两个维度系统评估创新方案。</div>
+        <div class="agent-tags">
+          <span class="agent-tag">AHA评分</span>
+          <span class="agent-tag">MAP评分</span>
+          <span class="agent-tag">综合评估</span>
+        </div>
+        <div class="agent-example">
+          <div class="agent-example-label">真实案例</div>
+          <div class="agent-example-text">
+            达芬奇手术机器人：<br>AHA <strong>4.67</strong> / MAP <strong>4.0</strong><br>壁垒满分（5000+专利+数据飞轮），Acquire相对短板。
+          </div>
+        </div>
+        <div class="agent-triggers">
+          <strong>触发词</strong>
+          评估创新价值 · AHA评估 · MAP评估
+        </div>
+      </div>
+      <div class="agent-card-footer">
+        <span class="agent-triggers"></span>
+        <a href="agents/value-evaluator.html" class="agent-link" target="_blank">
+          查看 Agent →
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== CASE STUDIES ===== -->
+  <section class="cases-section">
+    <div class="cases-inner">
+      <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 4px;">📚 内置真实案例参考</h2>
+      <p style="color: var(--text-sub); font-size: 14px; margin-bottom: 24px;">每个 Agent 的附录都包含来自真实公司的完整创新故事弧，作为执行标准。</p>
+      <div class="cases-grid">
+        <a href="innovation-case-studies.html" class="case-chip" target="_blank">
+          <div class="case-chip-logo">📺</div>
+          <div class="case-chip-info">
+            <div class="case-chip-name">Netflix</div>
+            <div class="case-chip-tag">推荐算法 · Reveal+Inspire</div>
+          </div>
+        </a>
+        <a href="innovation-case-studies.html#stripe" class="case-chip" target="_blank">
+          <div class="case-chip-logo">💳</div>
+          <div class="case-chip-info">
+            <div class="case-chip-name">Stripe</div>
+            <div class="case-chip-tag">支付API · Shape</div>
+          </div>
+        </a>
+        <a href="innovation-case-studies.html#duolingo" class="case-chip" target="_blank">
+          <div class="case-chip-logo">🦉</div>
+          <div class="case-chip-info">
+            <div class="case-chip-name">Duolingo</div>
+            <div class="case-chip-tag">游戏化验证 · Exam</div>
+          </div>
+        </a>
+        <a href="innovation-case-studies.html#davinci" class="case-chip" target="_blank">
+          <div class="case-chip-logo">🏥</div>
+          <div class="case-chip-info">
+            <div class="case-chip-name">达芬奇机器人</div>
+            <div class="case-chip-tag">手术机器人 · Value</div>
+          </div>
+        </a>
+        <a href="innovation-case-studies.html#airpods" class="case-chip" target="_blank">
+          <div class="case-chip-logo">🎧</div>
+          <div class="case-chip-info">
+            <div class="case-chip-name">Apple AirPods</div>
+            <div class="case-chip-tag">TWS品类开创 · Inspire</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <h2>准备好开始你的创新旅程了吗？</h2>
+    <p>选择一个 Agent，或串联全部5个完成端到端价值创新。</p>
+    <div class="cta-buttons">
+      <a href="https://github.com/davidma1973simu/rise-innovation-agents" class="cta-btn cta-btn-primary" target="_blank">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        在 GitHub 查看源码
+      </a>
+      <a href="https://github.com/davidma1973simu/rise-innovation-agents/fork" class="cta-btn cta-btn-secondary" target="_blank">
+        Fork 此项目
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>RISE Innovation Agents · <a href="https://github.com/davidma1973simu/rise-innovation-agents" target="_blank">GitHub</a> · MIT License</p>
+  </footer>
+
+</body>
+</html>

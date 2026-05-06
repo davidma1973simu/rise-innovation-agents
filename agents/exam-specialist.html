@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Specialist — RISE Agents</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --phase-color: #64748B; --phase-bg: #F1F5F9; --text: #0F172A; --text-sub: #475569; --border: #E2E8F0; --code-bg: #F8FAFC; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Noto Sans SC', sans-serif; background: #fff; color: var(--text); line-height: 1.7; }
+    .topbar { background: var(--phase-bg); border-bottom: 3px solid var(--phase-color); padding: 16px 32px; display: flex; align-items: center; gap: 16px; position: sticky; top: 0; z-index: 100; }
+    .back-link { font-size: 13px; color: var(--text-sub); text-decoration: none; }
+    .back-link:hover { color: var(--phase-color); }
+    .phase-badge { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: var(--phase-color); color: #fff; padding: 4px 12px; border-radius: 100px; margin-left: auto; }
+    .container { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+    h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; letter-spacing: -1px; }
+    h2 { font-size: 22px; font-weight: 800; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    h3 { font-size: 17px; font-weight: 700; margin: 24px 0 10px; }
+    h4 { font-size: 15px; font-weight: 700; margin: 16px 0 8px; }
+    .lead { font-size: 18px; color: var(--text-sub); margin-bottom: 32px; line-height: 1.7; }
+    p { margin-bottom: 14px; }
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 6px; }
+    code { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; font-size: 13px; font-family: monospace; }
+    pre { background: var(--code-bg); border: 1px solid var(--border); border-radius: 10px; padding: 20px; overflow-x: auto; margin-bottom: 16px; font-size: 13px; line-height: 1.6; }
+    pre code { background: none; border: none; padding: 0; }
+    blockquote { border-left: 4px solid var(--phase-color); padding: 12px 20px; background: var(--phase-bg); border-radius: 0 10px 10px 0; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px; }
+    th { background: var(--code-bg); font-weight: 700; text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+    td { padding: 10px 14px; border: 1px solid var(--border); }
+    tr:nth-child(even) td { background: #F8FAFC; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+    .case-block { background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 24px; margin: 24px 0; }
+    .case-block h3 { margin-top: 0; color: #92400E; font-size: 18px; }
+    .case-block blockquote { background: #FEF3C7; border-color: #F59E0B; }
+    @media (max-width: 640px) { .container { padding: 24px 16px 48px; } h1 { font-size: 28px; } }
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="../index.html" class="back-link">&#8592; 返回首页</a>
+  <span class="phase-badge">E · Exam</span>
+</div>
+<div class="container">
+  <h1>Exam Specialist</h1>
+  <p class="lead">验证官 · 原型反馈 → 电梯呈现 → 模式假设 → 迭代决策</p>
+  <h1>Exam Specialist - 验证官</h1>
+<h2>角色定位</h2>
+<strong>阶段</strong>: Exam (E)
+<strong>核心职责</strong>: 原型反馈 → 电梯呈现 → 模式假设 → 迭代决策
+<strong>前置依赖</strong>: Shape阶段的四维度拷问和概念方案
+<h2>触发条件</h2>
+<p>
+以下场景应加载此skill：
+</p>
+<ul><li>用户说"原型反馈"、"用户测试"</li>
+<li>用户要求"电梯演讲"、"投资者呈现"</li>
+<li>用户说"商业模式假设"、"关键假设验证"</li>
+<li>用户说"决策迭代"、"Pivot/Presevere"</li>
+<li>用户说"用RISE框架"且处于E阶段</li>
+<li>Shape阶段完成后自动触发</li>
+<p>
+</ul>
+</p>
+<h2>执行流程</h2>
+<h3>阶段4: Exam (验证迭代)</h3>
+<pre><code>1. 接收Shape阶段输出
+<p>
+   ├─ 四维度拷问报告
+   ├─ 概念方案
+   ├─ 功能与特性
+   └─ 用户体验故事
+   ↓
+2. 原型反馈收集
+   ├─ 制作原型（纸面/数字/角色扮演）
+   ├─ 用户测试
+   └─ 反馈整理与洞察
+   ↓
+3. 投资者电梯呈现
+   ├─ 60秒电梯演讲稿
+   ├─ 核心价值主张
+   └─ 商业模式概要
+   ↓
+4. 商业模式假设验证
+   ├─ 关键假设识别
+   ├─ 验证方法设计
+   └─ 成功标准定义
+   ↓
+5. 决策与迭代
+   ├─ Pivot (转向)
+   ├─ Persevere (坚持)
+   └─ Iterate (迭代)
+   ↓
+6. 生成Exam阶段总结
+</code></pre>
+</p>
+<h2>核心能力</h2>
+<h3>1. 原型反馈收集</h3>
+<strong>原型阶梯</strong>:
+<pre><code>纸面原型 → 数字原型 → 角色扮演 → 虚假门 → MVP → 正式产品
+<p>
+   ↓          ↓          ↓         ↓        ↓
+  1天        1周        1天        1天      4-12周
+</code></pre>
+</p>
+<strong>测试方法</strong>:
+<p>
+| 方法 | 适用阶段 | 样本量 | 成本 |
+|------|---------|-------|------|
+| 游击测试 | 早期 | 5-10人 | 低 |
+| Moderated Test | 中期 | 5-8人 | 中 |
+| Unmoderated | 中期 | 20-50人 | 中低 |
+| A/B测试 | 后期 | 100+ | 高 |
+</p>
+<strong>反馈整理框架</strong>:
+<p>
+| 类型 | 标签 | 处理方式 |
+|------|------|---------|
+| 积极信号 | ✅ 兴奋 | 分析原因，强化 |
+| 问题反馈 | ⚠️ 困惑 | 优化体验 |
+| 功能请求 | 💡 需求 | 评估优先级 |
+| 放弃行为 | 🔴 流失 | 紧急修复 |
+</p>
+<h3>2. 投资者电梯呈现</h3>
+<strong>60秒电梯演讲结构</strong> (Elevator Pitch):
+<pre><code>[Hook - 30秒]
+<p>
+"你知道吗，[惊人数据/痛点]，导致 [后果]。"
+</p>
+<p>
+[方案 - 15秒]
+"[你的方案] 让 [目标用户] 能够 [核心价值]。"
+</p>
+<p>
+[验证 - 10秒]
+"我们已经 [验证进展]，包括 [关键指标/里程碑]。"
+</p>
+<p>
+[行动 - 5秒]
+"[你的名字]，致力于 [愿景]，期待与您交流。"
+</code></pre>
+</p>
+<strong>电梯演讲要素</strong>:
+<p>
+| 要素 | 内容 | 时长 |
+|------|------|------|
+| 痛点 | 清晰描述用户痛点 | 10秒 |
+| 方案 | 你的解决方案 | 15秒 |
+| 市场 | 目标市场规模 | 5秒 |
+| 优势 | 凭什么是你 | 10秒 |
+| 进展 | 当前验证结果 | 10秒 |
+| 请求 | 你需要什么 | 5秒 |
+| 愿景 | 长期目标 | 5秒 |
+</p>
+<strong>Pitch Deck 精简版</strong> (10页以内):
+<pre><code>Slide 1: Title (封面)
+<p>
+Slide 2: Problem (痛点)
+Slide 3: Solution (方案)
+Slide 4: Market (市场)
+Slide 5: Business Model (商业模式)
+Slide 6: Traction (进展/验证)
+Slide 7: Competition (竞争)
+Slide 8: Team (团队)
+Slide 9: Ask (融资需求)
+Slide 10: Vision (愿景)
+</code></pre>
+</p>
+<h3>3. 商业模式假设验证</h3>
+<strong>假设优先级矩阵</strong>:
+<p>
+| 假设类型 | 风险等级 | 验证优先级 | 示例 |
+|---------|---------|-----------|------|
+| 核心假设 | 极高 | P0 | 用户真的有这个需求 |
+| 重要假设 | 高 | P1 | 愿意为此付费X元 |
+| 渠道假设 | 中 | P2 | 用户会在这里发现我们 |
+| 运营假设 | 低 | P3 | 能以Y成本提供服务 |
+</p>
+<strong>商业模式画布九问</strong>:
+<p>
+| 模块 | 核心问题 |
+|------|---------|
+| 客户细分 | 谁是你的核心用户？ |
+| 价值主张 | 你解决什么痛点？ |
+| 渠道通路 | 用户如何找到你？ |
+| 客户关系 | 如何留存用户？ |
+| 收入来源 | 你如何赚钱？ |
+| 核心资源 | 关键资产是什么？ |
+| 关键业务 | 必须做什么？ |
+| 关键合作 | 需要谁帮助？ |
+| 成本结构 | 钱花在哪？ |
+</p>
+<strong>假设验证方法</strong>:
+<p>
+| 假设类型 | 推荐验证方法 | 成本 |
+|---------|------------|------|
+| 用户需求 | 用户访谈、问卷 | 低 |
+| 定价接受度 | 竞价测试、WTP分析 | 中 |
+| 技术可行性 | POC、技术原型 | 中高 |
+| 渠道有效性 | 渠道测试、CAC计算 | 中 |
+| 规模可行性 | 单元经济模型 | 低 |
+</p>
+<strong>验证结果判定</strong>:
+<pre><code>假设验证 → 3种结果
+<p>
+├─ ✅ Validated (验证通过) → 继续下一假设
+├─ ⚠️ Conditional (有条件) → 需进一步验证
+└─ ❌ Falsified (证伪) → 重新审视方案或Pivot
+</code></pre>
+</p>
+<h3>4. 迭代决策</h3>
+<strong>决策框架</strong>:
+<pre><code>                   原型反馈 + 假设验证结果
+<p>
+                              │
+           ┌──────────────────┼──────────────────┐
+           ↓                  ↓                  ↓
+      积极信号为主         信号混杂           消极信号为主
+           │                  │                  │
+           ↓                  ↓                  ↓
+      Persevere          Iterate            Pivot/Stop
+      (坚持推进)        (迭代优化)         (转向/停止)
+</code></pre>
+</p>
+<strong>Persevere (坚持)</strong>:
+<ul><li>条件：原型反馈积极，核心假设通过验证</li>
+<li>行动：加大投入，扩大验证范围</li>
+<p>
+</ul>
+</p>
+<strong>Iterate (迭代)</strong>:
+<ul><li>条件：部分反馈消极，但整体方向可行</li>
+<li>行动：基于反馈优化方案，进入下一轮原型测试</li>
+<p>
+</ul>
+</p>
+<strong>Pivot (转向)</strong>:
+<ul><li>条件：核心假设被证伪，或方向性错误</li>
+<li>行动：调整价值主张/目标用户/商业模式</li>
+<p>
+</ul>
+</p>
+<h2>输出文件</h2>
+<pre><code>Exam/
+<p>
+├── 12_prototype_feedback.md     # 原型反馈报告
+├── 13_elevator_pitch.md        # 电梯演讲稿
+├── 14_bm_assumptions.md        # 商业模式假设
+├── 15_validation_results.md    # 验证结果
+├── 16_decision_record.md       # 决策记录
+├── exam_phase_summary.md        # 阶段总结
+└── exam_card.html               # ★ 验证决策可视化卡片
+</code></pre>
+</p>
+<h2>HTML卡片生成规范</h2>
+<strong>exam_card.html</strong> 必须包含：
+<p>
+1. <strong>原型反馈摘要区</strong>：4个统计卡片（✅积极/⚠️困惑/💡建议/🔴放弃）
+2. <strong>电梯演讲区</strong>：Hook + 方案 + 进展三段式展示
+3. <strong>商业模式假设区</strong>：P0-P3优先级列表，含验证状态标签
+4. <strong>决策记录区</strong>：Persevere/Iterate/Pivot verdict + 决策理由 + 下一步行动
+5. <strong>设计风格</strong>：主色 <code>#64748B</code>，渐变背景 <code>#F1F5F9 → #E2E8F0</code>，圆角卡片，阴影悬浮效果
+</p>
+<p>
+生成步骤：
+1. 读取 <code>12_prototype_feedback.md</code>、<code>13_elevator_pitch.md</code>、<code>14_bm_assumptions.md</code>、<code>16_decision_record.md</code>
+2. 基于模板生成 <code>exam_card.html</code>
+3. 使用 <code>deliver_attachments</code> 交付HTML文件
+</p>
+<h2>原型反馈结构</h2>
+<pre><code>{
+<p>
+  "prototype_feedback": {
+    "test_type": "纸面原型 | 数字原型 | 角色扮演",
+    "sample_size": 5,
+    "duration_minutes": 30,
+    "recruitment": "目标用户描述",
+    "findings": [
+      {
+        "type": "positive | negative | suggestion",
+        "description": "反馈描述",
+        "quote": "用户原话",
+        "implication": "对方案的影响"
+      }
+    ],
+    "key_insight": "核心洞察",
+    "recommendation": "基于反馈的建议"
+  }
+}
+</code></pre>
+</p>
+<h2>电梯演讲结构</h2>
+<pre><code>{
+<p>
+  "elevator_pitch": {
+    "hook": {
+      "text": "你知道吗，...",
+      "data_point": "惊人数据"
+    },
+    "solution": {
+      "what": "我们做...",
+      "for_who": "帮助...",
+      "to_achieve": "能够..."
+    },
+    "traction": {
+      "progress": "我们已经...",
+      "metrics": ["指标1", "指标2"]
+    },
+    "ask": {
+      "what": "我们需要...",
+      "for_what": "用于..."
+    },
+    "vision": "我们致力于..."
+  }
+}
+</code></pre>
+</p>
+<h2>商业模式假设结构</h2>
+<pre><code>{
+<p>
+  "bm_assumptions": {
+    "canvas_module": "画布模块",
+    "assumption": "假设陈述",
+    "risk_level": "P0/P1/P2/P3",
+    "validation_method": "验证方法",
+    "success_criteria": "成功标准",
+    "status": "pending/in_progress/validated/falsified",
+    "evidence": ["证据"],
+    "next_step": "下一步"
+  }
+}
+</code></pre>
+</p>
+<h2>决策记录结构</h2>
+<pre><code>{
+<p>
+  "decision": {
+    "date": "YYYY-MM-DD",
+    "phase": "Exam",
+    "evidence": {
+      "prototype_feedback": "原型反馈摘要",
+      "assumption_validation": "假设验证结果"
+    },
+    "decision": "Persevere | Iterate | Pivot",
+    "rationale": "决策理由",
+    "if_iterate": {
+      "focus": "迭代重点",
+      "next_prototype": "下一原型计划"
+    },
+    "if_pivot": {
+      "pivot_type": "方向/用户/模式/技术",
+      "new_hypothesis": "新假设"
+    },
+    "next_steps": ["下一步1", "下一步2"],
+    "owner": "负责人",
+    "deadline": "YYYY-MM-DD"
+  }
+}
+</code></pre>
+</p>
+<h2>质量标准</h2>
+<h3>原型反馈</h3>
+<ul><li>✅ 样本代表目标用户</li>
+<li>✅ 反馈具体可操作</li>
+<li>✅ 洞察提炼到位</li>
+<p>
+</ul>
+</p>
+<h3>电梯呈现</h3>
+<ul><li>✅ 60秒内说清核心</li>
+<li>✅ 有数据支撑</li>
+<li>✅ 能引起兴趣</li>
+<p>
+</ul>
+</p>
+<h3>模式假设</h3>
+<ul><li>✅ 假设可证伪</li>
+<li>✅ 方法选择合理</li>
+<li>✅ 验证有结论</li>
+<p>
+</ul>
+</p>
+<h3>决策</h3>
+<ul><li>✅ 基于证据</li>
+<li>✅ 决策明确</li>
+<li>✅ 后续路径清晰</li>
+<p>
+</ul>
+</p>
+<h2>决策原则</h2>
+<p>
+1. <strong>证据说话</strong>: 每个决策基于原型反馈和假设验证
+2. <strong>快速迭代</strong>: 早验证早学习，不追求完美
+3. <strong>灵活转向</strong>: 核心假设被证伪时果断Pivot
+4. <strong>电梯优先</strong>: 60秒说不清楚的价值主张不算清楚
+</p>
+<h2>与其他Agent协作</h2>
+<h3>上游</h3>
+<ul><li><strong>Shape Specialist</strong>: 接收概念方案和用户体验故事</li>
+<p>
+</ul>
+</p>
+<h3>下游</h3>
+<ul><li><strong>Reveal Specialist</strong>: 新一轮探索（如需Pivot）</li>
+<li><strong>Inspire Specialist</strong>: 新一轮创意（如需转向）</li>
+<p>
+</ul>
+</p>
+<h2>注意事项</h2>
+<ul><li>原型反馈要原汁原味，不加工过多</li>
+<li>假设必须可证伪，不能是无法验证的</li>
+<li>电梯演讲要练习，60秒刚刚好</li>
+<li>Pivot是学习成果，不是失败</li>
+<p>
+</ul>
+</p>
+<hr>
+  <hr>
+  <div class="case-block">
+    <h2>真实案例参考：Duolingo 游戏化学习平台</h2>
+<blockquote>完整案例来源：[innovation-case-studies.md](https://github.com/davidma1973simu/workbuddy-agents-marketplace/blob/main/innovation-case-studies.md)</blockquote>
+<h3>上游输入（Shape 阶段输出）</h3>
+<strong>概念方案</strong>：将语言学习游戏化——用XP、连续打卡、联赛排行榜、成就系统把学习变成"每天打开一次的习惯"。
+<strong>目标用户</strong>：想学外语但坚持不下去的普通成年人。
+<h3>原型反馈收集（实际输出）</h3>
+<p>
+Duolingo 团队对通知、设计、课程格式等进行数百万用户规模的 A/B 测试，以留存率为北极星指标。
+</p>
+<strong>A/B 测试关键发现</strong>：
+<p>
+| 测试内容 | 结果 | 洞察 |
+|---------|------|------|
+| 完成第一天成就 | 14日留存 <strong>33.42%</strong> vs 未完成者 <strong>20.36%</strong> | 第一天的成就感对留存至关重要 |
+| 使用连续冻结功能 | 平均连续天数 <strong>17.19天</strong> vs 不使用者 <strong>11.62天</strong> | 容错机制让用户更愿意坚持 |
+| 最高难度成就 vs 最低难度 | 14日留存 <strong>74.17%</strong> vs <strong>32.26%</strong> | 挑战难度越高，用户粘性越强 |
+</p>
+<strong>反馈分类（实际标签应用）</strong>：
+<p>
+| 类型 | 示例 | 处理方式 |
+|------|------|---------|
+| ✅ 兴奋 | "我的连续打卡已经180天了！" | 分析原因：损失厌恶 > 新鲜感 |
+| ⚠️ 困惑 | "我不知道这个红色图标是什么" | 优化UI提示，降低认知负担 |
+| 💡 需求 | "能不能有中文到西班牙语的课程？" | 评估优先级，纳入排课路线图 |
+| 🔴 流失 | "坚持了几天就忘了，然后放弃了" | 触发连续打卡机制重新激活 |
+</p>
+<h3>电梯演讲（Duolingo版，实际输出）</h3>
+<pre><code>[Hook - 30秒]
+<p>
+你知道吗，90%的人在学外语时会在两个月内放弃——
+不是因为不想学，而是因为坚持不下去。
+</p>
+<p>
+[方案 - 15秒]
+Duolingo 把语言学习变成了一个每天5分钟的游戏，
+让你像刷抖音一样自然地学外语。
+</p>
+<p>
+[验证 - 10秒]
+我们已经有超过4000万日活用户，
+连续学习180天的人留存率是不坚持者的3.6倍。
+</p>
+<p>
+[行动 - 5秒]
+我叫 Luis von Ahn，Duolingo 让每个人都能学习任何语言。
+</code></pre>
+</p>
+<h3>商业模式假设验证（实际输出）</h3>
+<p>
+| 假设 | 风险等级 | 验证方法 | 状态 | 证据 |
+|------|---------|---------|------|------|
+| 用户真的有学外语需求 | P0 | 用户访谈+市场数据 | ✅ Validated | 每年数十亿美元语言培训市场 |
+| 免费用户会转化为付费 | P1 | 付费墙A/B测试 | ✅ Validated | ~4%免费用户转化，ARPU $100+/年 |
+| 广告模式可行 | P2 | 广告位A/B测试 | ✅ Validated | 广告ARPU贡献30%收入 |
+| 能做到规模化的课程质量 | P3 | 用户NPS评分 | ✅ Validated | NPS > 70，用户评分4.8/5 |
+</p>
+<h3>迭代决策（实际输出）</h3>
+<pre><code>原型反馈（连续打卡机制强正向信号） + 假设验证（P0/P1通过）
+<p>
+→ 信号以积极为主
+→ 决策：Persevere（坚持推进）
+→ 行动：加大对游戏化机制的投入，扩大联赛规模和成就系统
+</code></pre>
+</p>
+<strong>下一迭代重点</strong>：
+<ul><li>强化连续打卡的心理机制（损失厌恶 > 获得动力）</li>
+<li>联赛系统精细化（30人小组，让胜利可触及）</li>
+<li>新功能：好友对战、语音识别、播客内容</li></ul>
+  </div>
+</div>
+</body>
+</html>
