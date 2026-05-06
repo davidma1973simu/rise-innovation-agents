@@ -123,8 +123,22 @@ Inspire/
 ├── 05_idea_diverge.md          # 创意发散记录
 ├── 06_idea_convergence.json     # 创意收敛结果
 ├── 07_inspiration_library.json  # 灵感库（含候选）
-└── inspire_phase_summary.md     # 阶段总结
+├── inspire_phase_summary.md     # 阶段总结
+└── inspire_card.html             # ★ 灵感激发可视化卡片
 ```
+
+## HTML卡片生成规范
+
+**inspire_card.html** 必须包含：
+1. **HMW问题区**：展示3-5个HMW变体（来源洞察、问题文本、发散角度）
+2. **收敛矩阵**：可行性×影响力四象限图（战略核心/快速胜出/重点攻坚/后续迭代）
+3. **候选灵感列表**：≤5个候选创意（标题、描述、类型标签、可行性/影响力星级）
+4. **设计风格**：主色 `#7F77DD`，渐变背景 `#F5F3FF → #EDE9FE`，圆角卡片，阴影悬浮效果
+
+生成步骤：
+1. 读取 `04_hmw_questions.json` 和 `06_idea_convergence.json`
+2. 基于模板生成 `inspire_card.html`
+3. 使用 `deliver_attachments` 交付HTML文件
 
 ## HMW问题结构
 

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam - 验证决策卡片</title>
+  <style>
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(100, 116, 139, 0.15), 0 8px 20px rgba(0,0,0,0.08);
+      max-width: 960px;
+      width: 100%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 70px rgba(100, 116, 139, 0.25), 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .card-header {
+      background: linear-gradient(135deg, #64748B 0%, #475569 100%);
+      padding: 28px 32px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .phase-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .card-header h1 { font-size: 24px; font-weight: 700; line-height: 1.3; }
+    .card-header p { font-size: 14px; opacity: 0.9; margin-top: 6px; }
+    .card-body { padding: 32px; }
+    .section { margin-bottom: 32px; }
+    .section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: #64748B;
+      border-radius: 2px;
+    }
+    /* 电梯演讲 */
+    .pitch-box {
+      background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .pitch-hook {
+      font-size: 15px;
+      color: #1e293b;
+      line-height: 1.6;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #CBD5E1;
+    }
+    .pitch-section { margin-bottom: 12px; }
+    .pitch-label { font-size: 11px; color: #64748B; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .pitch-text { font-size: 14px; color: #334155; line-height: 1.5; }
+    .pitch-progress { font-size: 13px; color: #059669; font-weight: 500; }
+    /* 假设验证 */
+    .assumption-list { display: grid; gap: 10px; }
+    .assumption-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: #FAFAFA;
+      border-radius: 12px;
+      border: 1px solid #EEE;
+    }
+    .assumption-priority {
+      width: 8px;
+      height: 32px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .p0 { background: #E53935; }
+    .p1 { background: #FB8C00; }
+    .p2 { background: #FDD835; }
+    .p3 { background: #43A047; }
+    .assumption-content { flex: 1; }
+    .assumption-text { font-size: 14px; color: #333; font-weight: 500; }
+    .assumption-method { font-size: 12px; color: #888; margin-top: 3px; }
+    .assumption-status {
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .status-pending { background: #F1F5F9; color: #64748B; }
+    .status-in-progress { background: #FEF3C7; color: #D97706; }
+    .status-validated { background: #D1FAE5; color: #059669; }
+    .status-falsified { background: #FEE2E2; color: #DC2626; }
+    /* 决策记录 */
+    .decision-box {
+      background: #F8FAFC;
+      border: 2px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .decision-verdict {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .verdict-persevere { background: #D1FAE5; color: #059669; }
+    .verdict-iterate { background: #FEF3C7; color: #D97706; }
+    .verdict-pivot { background: #FEE2E2; color: #DC2626; }
+    .decision-rationale {
+      font-size: 14px;
+      color: #334155;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .next-steps { display: grid; gap: 8px; }
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #475569;
+    }
+    .step-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #64748B;
+      flex-shrink: 0;
+    }
+    /* 反馈摘要 */
+    .feedback-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .feedback-stat {
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: 10px;
+    }
+    .stat-positive { background: #F0FDF4; }
+    .stat-neutral { background: #FEF3C7; }
+    .stat-negative { background: #FEE2E2; }
+    .stat-count { font-size: 24px; font-weight: 700; color: #1e293b; }
+    .stat-label { font-size: 11px; color: #64748B; margin-top: 4px; }
+    .meta-bar {
+      display: flex;
+      gap: 20px;
+      padding: 16px 32px;
+      background: #FAFAFA;
+      border-top: 1px solid #EEE;
+      font-size: 12px;
+      color: #888;
+      flex-wrap: wrap;
+    }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="phase-badge">⚙️ EXAM 阶段</div>
+      <h1>验证决策卡片</h1>
+      <p>原型反馈 · 假设验证 · 迭代决策</p>
+    </div>
+    <div class="card-body">
+      <!-- 原型反馈摘要 -->
+      <div class="section">
+        <div class="section-title">原型反馈摘要</div>
+        <div class="feedback-summary">
+          <div class="feedback-stat stat-positive">
+            <div class="stat-count">8</div>
+            <div class="stat-label">✅ 积极</div>
+          </div>
+          <div class="feedback-stat stat-neutral">
+            <div class="stat-count">3</div>
+            <div class="stat-label">⚠️ 困惑</div>
+          </div>
+          <div class="feedback-stat stat-neutral">
+            <div class="stat-count">5</div>
+            <div class="stat-label">💡 建议</div>
+          </div>
+          <div class="feedback-stat stat-negative">
+            <div class="stat-count">1</div>
+            <div class="stat-label">🔴 放弃</div>
+          </div>
+        </div>
+      </div>
+      <!-- 电梯演讲 -->
+      <div class="section">
+        <div class="section-title">60秒电梯演讲</div>
+        <div class="pitch-box">
+          <div class="pitch-hook">
+            「你知道吗，73%的年轻职场人感到焦虑却不愿求助——因为他们害怕被评判。」
+          </div>
+          <div class="pitch-section">
+            <div class="pitch-label">方案</div>
+            <div class="pitch-text">「悄悄话」让年轻职场人能够安全地释放情绪，无需注册、无需解释。</div>
+          </div>
+          <div class="pitch-section">
+            <div class="pitch-label">进展</div>
+            <div class="pitch-progress">✓ 已完成20人纸面原型测试 | ✓ NPS 72分 | ✓ 3家企业意向采购</div>
+          </div>
+        </div>
+      </div>
+      <!-- 商业模式假设 -->
+      <div class="section">
+        <div class="section-title">商业模式假设（优先级排序）</div>
+        <div class="assumption-list">
+          <div class="assumption-item">
+            <div class="assumption-priority p0"></div>
+            <div class="assumption-content">
+              <div class="assumption-text">用户真的有匿名情绪释放需求</div>
+              <div class="assumption-method">验证方法: 用户访谈 + 问卷</div>
+            </div>
+            <div class="assumption-status status-validated">✓ 验证通过</div>
+          </div>
+          <div class="assumption-item">
+            <div class="assumption-priority p1"></div>
+            <div class="assumption-content">
+              <div class="assumption-text">愿意为高级功能支付¥19/月</div>
+              <div class="assumption-method">验证方法: 竞价测试</div>
+            </div>
+            <div class="assumption-status status-in-progress">⚠ 验证中</div>
+          </div>
+          <div class="assumption-item">
+            <div class="assumption-priority p2"></div>
+            <div class="assumption-content">
+              <div class="assumption-text">HR部门愿意采购企业版</div>
+              <div class="assumption-method">验证方法: 渠道测试</div>
+            </div>
+            <div class="assumption-status status-pending">⋯ 待验证</div>
+          </div>
+        </div>
+      </div>
+      <!-- 决策记录 -->
+      <div class="section">
+        <div class="section-title">迭代决策</div>
+        <div class="decision-box">
+          <div class="decision-verdict verdict-persevere">✓ Persevere（坚持推进）</div>
+          <div class="decision-rationale">
+            原型测试反馈积极（NPS 72），核心假设「匿名情绪释放需求」已验证通过。
+            商业模式假设P1（付费意愿）正在验证中，初步数据支持¥19/月定价。
+            建议进入MVP开发阶段，同时继续验证P1-P3假设。
+          </div>
+          <div class="next-steps">
+            <div style="font-size:12px;font-weight:600;color:#64748B;margin-bottom:4px;">下一步行动</div>
+            <div class="step-item"><div class="step-dot"></div>开发MVP（4周）</div>
+            <div class="step-item"><div class="step-dot"></div>启动付费意愿测试（A/B测试¥19/¥29/¥39）</div>
+            <div class="step-item"><div class="step-dot"></div>对接3家意向企业HR部门深度访谈</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="meta-bar">
+      <div class="meta-item">📅 <span>2026-05-06</span></div>
+      <div class="meta-item">🧪 <span>原型: 纸面 → 数字</span></div>
+      <div class="meta-item">🎯 <span>决策: Persevere</span></div>
+      <div class="meta-item">📊 <span>NPS: 72</span></div>
+    </div>
+  </div>
+</body>
+</html>

@@ -148,8 +148,23 @@ Shape/
 ├── 09_concept_proposal.md        # 概念方案
 ├── 10_features_design.md         # 功能与特性
 ├── 11_ux_story.md               # 用户体验故事
-└── shape_phase_summary.md        # 阶段总结
+├── shape_phase_summary.md        # 阶段总结
+└── shape_card.html                # ★ 方案架构可视化卡片
 ```
+
+## HTML卡片生成规范
+
+**shape_card.html** 必须包含：
+1. **四维度拷问区**：4张卡片分别对应🔵商业/👤用户/⚙️可行/🤝利益方，每卡显示verdict（✓Pass/⚠Conditional/✗Reject）
+2. **概念方案区**：方案名称+一句话价值主张+边界定义（做什么/不做什么）
+3. **功能特性区**：Must/Should/Could三级优先级列表
+4. **UX故事区**：2-3个典型用户故事
+5. **设计风格**：主色 `#0F6E56`，渐变背景 `#E8F5E9 → #C8E6C9`，圆角卡片，阴影悬浮效果
+
+生成步骤：
+1. 读取 `08_four_dimension_audit.md` 和 `09_concept_proposal.md`
+2. 基于模板生成 `shape_card.html`
+3. 使用 `deliver_attachments` 交付HTML文件
 
 ## 四维度拷问结构
 

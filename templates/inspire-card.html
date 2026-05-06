@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspire - 灵感激发卡片</title>
+  <style>
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(127, 119, 221, 0.15), 0 8px 20px rgba(0,0,0,0.08);
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 70px rgba(127, 119, 221, 0.25), 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .card-header {
+      background: linear-gradient(135deg, #7F77DD 0%, #9B93E8 100%);
+      padding: 28px 32px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .phase-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .card-header h1 { font-size: 24px; font-weight: 700; line-height: 1.3; }
+    .card-header p { font-size: 14px; opacity: 0.9; margin-top: 6px; }
+    .card-body { padding: 32px; }
+    .section { margin-bottom: 32px; }
+    .section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #7F77DD;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: #7F77DD;
+      border-radius: 2px;
+    }
+    .hmw-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .hmw-item {
+      background: #F5F3FF;
+      border-left: 4px solid #7F77DD;
+      padding: 16px;
+      border-radius: 0 12px 12px 0;
+    }
+    .hmw-source {
+      font-size: 11px;
+      color: #7F77DD;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .hmw-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1a1a1a;
+      line-height: 1.5;
+    }
+    .hmw-angle {
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+    }
+    /* 收敛矩阵 */
+    .matrix-container {
+      background: #FAFAFA;
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr 1fr;
+      gap: 1px;
+      background: #E0E0E0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .matrix-header {
+      background: #7F77DD;
+      color: white;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .matrix-cell {
+      background: white;
+      padding: 16px;
+      min-height: 100px;
+    }
+    .matrix-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+      padding: 8px;
+      background: #F5F3FF;
+    }
+    .idea-card {
+      background: white;
+      border: 2px solid #E0E0E0;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+      transition: all 0.2s;
+    }
+    .idea-card.selected {
+      border-color: #7F77DD;
+      background: #F5F3FF;
+    }
+    .idea-card h4 { font-size: 14px; color: #1a1a1a; margin-bottom: 6px; }
+    .idea-card p { font-size: 12px; color: #666; line-height: 1.4; }
+    .idea-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    .tag-core { background: #7F77DD; color: white; }
+    .tag-quick { background: #E8F5E9; color: #2E7D32; }
+    .tag-focus { background: #FFF3E0; color: #E65100; }
+    /* 灵感库 */
+    .inspiration-list { display: grid; gap: 10px; }
+    .inspiration-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #FAFAFA;
+      border-radius: 12px;
+      border: 1px solid #EEE;
+    }
+    .inspiration-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #F5F3FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .inspiration-content { flex: 1; }
+    .inspiration-title { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+    .inspiration-desc { font-size: 12px; color: #666; margin-top: 4px; line-height: 1.4; }
+    .inspiration-type {
+      font-size: 11px;
+      color: #7F77DD;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+    .meta-bar {
+      display: flex;
+      gap: 20px;
+      padding: 16px 32px;
+      background: #FAFAFA;
+      border-top: 1px solid #EEE;
+      font-size: 12px;
+      color: #888;
+    }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="phase-badge">💡 INSPIRE 阶段</div>
+      <h1>灵感激发卡片</h1>
+      <p>从洞察到创意的系统化激发</p>
+    </div>
+    <div class="card-body">
+      <!-- HMW问题 -->
+      <div class="section">
+        <div class="section-title">How Might We 问题</div>
+        <div class="hmw-grid" id="hmw-grid">
+          <div class="hmw-item">
+            <div class="hmw-source">来源: 洞察#1</div>
+            <div class="hmw-text">How might we 让年轻职场人在感到压力时，无需解释就能获得情绪支持？</div>
+            <div class="hmw-angle">角度: 降低心理门槛</div>
+          </div>
+          <div class="hmw-item">
+            <div class="hmw-source">来源: 洞察#2</div>
+            <div class="hmw-text">How might we 将情绪释放重新框定为"效率提升工具"？</div>
+            <div class="hmw-angle">角度: 认知重构</div>
+          </div>
+        </div>
+      </div>
+      <!-- 创意收敛矩阵 -->
+      <div class="section">
+        <div class="section-title">创意收敛矩阵</div>
+        <div class="matrix-container">
+          <div class="matrix-grid">
+            <div class="matrix-header"></div>
+            <div class="matrix-header">高影响力</div>
+            <div class="matrix-header">低影响力</div>
+            <div class="matrix-label">高可行性</div>
+            <div class="matrix-cell">
+              <div class="idea-card selected">
+                <span class="idea-tag tag-core">战略核心</span>
+                <h4>AI情绪伙伴</h4>
+                <p>基于聊天的情绪识别与引导工具</p>
+              </div>
+            </div>
+            <div class="matrix-cell">
+              <div class="idea-card">
+                <span class="idea-tag tag-quick">快速胜出</span>
+                <h4>情绪日记模板</h4>
+                <p>轻量级结构化记录工具</p>
+              </div>
+            </div>
+            <div class="matrix-label">低可行性</div>
+            <div class="matrix-cell">
+              <div class="idea-card">
+                <span class="idea-tag tag-focus">重点攻坚</span>
+                <h4>企业情绪体检</h4>
+                <p>B2B情绪健康评估服务</p>
+              </div>
+            </div>
+            <div class="matrix-cell">
+              <div class="idea-card">
+                <span class="idea-tag">后续迭代</span>
+                <h4>情绪数据交易</h4>
+                <p>(暂不推进)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 灵感库（前5候选） -->
+      <div class="section">
+        <div class="section-title">候选灵感（Top 5）</div>
+        <div class="inspiration-list" id="inspiration-list">
+          <div class="inspiration-item">
+            <div class="inspiration-icon">🤖</div>
+            <div class="inspiration-content">
+              <div class="inspiration-title">IDEA-01: AI情绪伙伴</div>
+              <div class="inspiration-desc">通过对话识别情绪状态，提供个性化释放练习（呼吸/正念/写作）</div>
+              <div class="inspiration-type">类型: 产品 | 可行性: ★★★★☆ | 影响力: ★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="meta-bar">
+      <div class="meta-item">📅 <span>2026-05-06</span></div>
+      <div class="meta-item">💡 <span>12个HMW → 5个候选</span></div>
+      <div class="meta-item">🎯 <span>下一步: Shape阶段</span></div>
+    </div>
+  </div>
+</body>
+</html>

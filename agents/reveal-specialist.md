@@ -74,6 +74,20 @@ Reveal/
 └── stakeholder_requirements_list.txt # 需求优先列表
 ```
 
+## HTML卡片生成规范
+
+**pov_card.html** 必须包含：
+1. **核心POV区**：完整POV声明（用户角色+情境+洞察需求+深层动机）
+2. **FIND洞察区**：4个洞察项（事实/解读/需求/设计洞察），每项有独立卡片
+3. **利益相关方区**：头像+姓名+角色+优先级标签
+4. **需求优先级区**：P0/P1/P2分级列表
+5. **设计风格**：主色 `#E07A2F`，渐变背景 `#FFF5EB → #FFE8D6`，圆角卡片，阴影悬浮效果
+
+生成步骤：
+1. 读取 `01_pov_builder.json` 和 `02_find_insight.json`
+2. 基于模板生成 `pov_card.html`
+3. 使用 `deliver_attachments` 交付HTML文件
+
 ## 质量标准
 
 ### 项目简报

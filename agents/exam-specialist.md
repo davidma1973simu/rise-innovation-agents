@@ -211,8 +211,23 @@ Exam/
 ├── 14_bm_assumptions.md        # 商业模式假设
 ├── 15_validation_results.md    # 验证结果
 ├── 16_decision_record.md       # 决策记录
-└── exam_phase_summary.md        # 阶段总结
+├── exam_phase_summary.md        # 阶段总结
+└── exam_card.html               # ★ 验证决策可视化卡片
 ```
+
+## HTML卡片生成规范
+
+**exam_card.html** 必须包含：
+1. **原型反馈摘要区**：4个统计卡片（✅积极/⚠️困惑/💡建议/🔴放弃）
+2. **电梯演讲区**：Hook + 方案 + 进展三段式展示
+3. **商业模式假设区**：P0-P3优先级列表，含验证状态标签
+4. **决策记录区**：Persevere/Iterate/Pivot verdict + 决策理由 + 下一步行动
+5. **设计风格**：主色 `#64748B`，渐变背景 `#F1F5F9 → #E2E8F0`，圆角卡片，阴影悬浮效果
+
+生成步骤：
+1. 读取 `12_prototype_feedback.md`、`13_elevator_pitch.md`、`14_bm_assumptions.md`、`16_decision_record.md`
+2. 基于模板生成 `exam_card.html`
+3. 使用 `deliver_attachments` 交付HTML文件
 
 ## 原型反馈结构
 

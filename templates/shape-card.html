@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shape - 方案架构卡片</title>
+  <style>
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(15, 110, 86, 0.15), 0 8px 20px rgba(0,0,0,0.08);
+      max-width: 960px;
+      width: 100%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 70px rgba(15, 110, 86, 0.25), 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .card-header {
+      background: linear-gradient(135deg, #0F6E56 0%, #2E8B73 100%);
+      padding: 28px 32px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .phase-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .card-header h1 { font-size: 24px; font-weight: 700; line-height: 1.3; }
+    .card-header p { font-size: 14px; opacity: 0.9; margin-top: 6px; }
+    .card-body { padding: 32px; }
+    .section { margin-bottom: 32px; }
+    .section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #0F6E56;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: #0F6E56;
+      border-radius: 2px;
+    }
+    /* 四维度拷问 */
+    .audit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .audit-card {
+      border-radius: 14px;
+      padding: 20px;
+      border: 2px solid;
+      position: relative;
+      overflow: hidden;
+    }
+    .audit-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .audit-business { background: #EBF5FB; border-color: #3498DB; }
+    .audit-business::before { background: #3498DB; }
+    .audit-user { background: #FEF9E7; border-color: #F39C12; }
+    .audit-user::before { background: #F39C12; }
+    .audit-feasibility { background: #E8F8F5; border-color: #1ABC9C; }
+    .audit-feasibility::before { background: #1ABC9C; }
+    .audit-stakeholder { background: #F4ECF7; border-color: #9B59B6; }
+    .audit-stakeholder::before { background: #9B59B6; }
+    .audit-icon { font-size: 24px; margin-bottom: 8px; }
+    .audit-title { font-size: 14px; font-weight: 700; color: #1a1a1a; margin-bottom: 8px; }
+    .audit-verdict {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    .verdict-pass { background: #E8F5E9; color: #2E7D32; }
+    .verdict-conditional { background: #FFF3E0; color: #E65100; }
+    .verdict-reject { background: #FFEBEE; color: #C62828; }
+    .audit-concerns {
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+      line-height: 1.4;
+    }
+    /* 概念方案 */
+    .concept-box {
+      background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .concept-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F6E56;
+      margin-bottom: 12px;
+    }
+    .concept-tagline {
+      font-size: 15px;
+      color: #2E7D32;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+    .concept-boundary {
+      background: white;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+    }
+    .boundary-title { font-weight: 600; color: #0F6E56; margin-bottom: 6px; }
+    /* 功能特性 */
+    .feature-list { display: grid; gap: 10px; }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: #FAFAFA;
+      border-radius: 12px;
+      border: 1px solid #EEE;
+    }
+    .feature-priority {
+      width: 8px;
+      height: 32px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .priority-Must { background: #E53935; }
+    .priority-Should { background: #FB8C00; }
+    .priority-Could { background: #43A047; }
+    .feature-content { flex: 1; }
+    .feature-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+    .feature-desc { font-size: 12px; color: #888; margin-top: 3px; }
+    .feature-priority-label {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 8px;
+    }
+    .label-Must { background: #FFEBEE; color: #C62828; }
+    .label-Should { background: #FFF3E0; color: #E65100; }
+    .label-Could { background: #E8F5E9; color: #2E7D32; }
+    /* UX故事 */
+    .ux-story-list { display: grid; gap: 12px; }
+    .ux-story {
+      background: #F9FBE7;
+      border-left: 4px solid #689F38;
+      padding: 16px 20px;
+      border-radius: 0 12px 12px 0;
+    }
+    .ux-role { font-size: 11px; color: #689F38; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .ux-story-text { font-size: 14px; color: #333; line-height: 1.6; margin-top: 6px; }
+    .meta-bar {
+      display: flex;
+      gap: 20px;
+      padding: 16px 32px;
+      background: #FAFAFA;
+      border-top: 1px solid #EEE;
+      font-size: 12px;
+      color: #888;
+      flex-wrap: wrap;
+    }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="phase-badge">🔷 SHAPE 阶段</div>
+      <h1>方案架构卡片</h1>
+      <p>四维度拷问 · 概念方案 · 功能设计</p>
+    </div>
+    <div class="card-body">
+      <!-- 四维度拷问 -->
+      <div class="section">
+        <div class="section-title">四维度拷问</div>
+        <div class="audit-grid">
+          <div class="audit-card audit-business">
+            <div class="audit-icon">🔵</div>
+            <div class="audit-title">商业维度</div>
+            <div style="font-size:13px;color:#333;line-height:1.5;">市场规模: 情绪健康市场预计2000亿/年<br>收入模型: 订阅制 + 企业采购<br>竞争壁垒: AI个性化 + 匿名性</div>
+            <div class="audit-verdict verdict-pass">✓ Pass</div>
+          </div>
+          <div class="audit-card audit-user">
+            <div class="audit-icon">👤</div>
+            <div class="audit-title">用户维度</div>
+            <div style="font-size:13px;color:#333;line-height:1.5;">真实需求: 安全私密的情绪出口<br>使用场景: 办公室/通勤/睡前<br>情感价值: 被理解而非被评判</div>
+            <div class="audit-verdict verdict-pass">✓ Pass</div>
+          </div>
+          <div class="audit-card audit-feasibility">
+            <div class="audit-icon">⚙️</div>
+            <div class="audit-title">可行维度</div>
+            <div style="font-size:13px;color:#333;line-height:1.5;">技术实现: NLP情绪识别成熟<br>资源需求: 2名全栈 + 1名心理咨询师<br>风险: 数据隐私合规</div>
+            <div class="audit-verdict verdict-conditional">⚠ Conditional</div>
+            <div class="audit-concerns">顾虑: 隐私合规需要专业咨询</div>
+          </div>
+          <div class="audit-card audit-stakeholder">
+            <div class="audit-icon">🤝</div>
+            <div class="audit-title">利益方维度</div>
+            <div style="font-size:13px;color:#333;line-height:1.5;">内部支持: 产品/技术团队认同<br>合作伙伴: 心理咨询机构<br>冲突风险: 与现有社交产品定位不同</div>
+            <div class="audit-verdict verdict-pass">✓ Pass</div>
+          </div>
+        </div>
+      </div>
+      <!-- 概念方案 -->
+      <div class="section">
+        <div class="section-title">概念方案</div>
+        <div class="concept-box">
+          <div class="concept-title">「悄悄话」AI情绪伙伴</div>
+          <div class="concept-tagline">给不想被看见的人，一个安全的情绪出口</div>
+          <div class="concept-boundary">
+            <div class="boundary-title">✓ 做什么</div>
+            AI驱动的情绪识别与引导工具，完全匿名，无需注册，对话即服务。
+            <div style="margin-top:10px" class="boundary-title">✗ 不做什么</div>
+            不做社交网络、不做公开内容、不替代专业心理咨询。
+          </div>
+        </div>
+      </div>
+      <!-- 功能特性 -->
+      <div class="section">
+        <div class="section-title">功能与特性</div>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-priority priority-Must"></div>
+            <div class="feature-content">
+              <div class="feature-name">匿名情绪对话</div>
+              <div class="feature-desc">无需注册，打开即用，AI识别情绪并引导释放</div>
+            </div>
+            <div class="feature-priority-label label-Must">Must</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-priority priority-Should"></div>
+            <div class="feature-content">
+              <div class="feature-name">情绪趋势可视化</div>
+              <div class="feature-desc">每周生成情绪地图，帮助用户看见模式</div>
+            </div>
+            <div class="feature-priority-label label-Should">Should</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-priority priority-Could"></div>
+            <div class="feature-content">
+              <div class="feature-name">专业支持入口</div>
+              <div class="feature-desc">情绪持续低落时，推荐认证心理咨询师</div>
+            </div>
+            <div class="feature-priority-label label-Could">Could</div>
+          </div>
+        </div>
+      </div>
+      <!-- UX故事 -->
+      <div class="section">
+        <div class="section-title">用户体验故事</div>
+        <div class="ux-story-list">
+          <div class="ux-story">
+            <div class="ux-role">作为 深夜加班的产品经理</div>
+            <div class="ux-story-text">当 我感到焦虑但不想打扰家人 时，我希望 有一个安全的出口把情绪倒出来，以便 睡个好觉而不带着情绪入睡。</div>
+          </div>
+          <div class="ux-story">
+            <div class="ux-role">作为 刚被批评的新人</div>
+            <div class="ux-story-text">当 我在洗手间独处 时，我希望 快速释放委屈和不安，以便 回到工位时看起来平静如常。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="meta-bar">
+      <div class="meta-item">📅 <span>2026-05-06</span></div>
+      <div class="meta-item">🔷 <span>4维度: 3Pass + 1Conditional</span></div>
+      <div class="meta-item">🎯 <span>下一步: Exam验证</span></div>
+    </div>
+  </div>
+</body>
+</html>

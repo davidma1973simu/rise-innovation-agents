@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reveal - POV卡片</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #FFF5EB 0%, #FFE8D6 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(224, 122, 47, 0.15), 0 8px 20px rgba(0,0,0,0.08);
+      max-width: 680px;
+      width: 100%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 70px rgba(224, 122, 47, 0.25), 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .card-header {
+      background: linear-gradient(135deg, #E07A2F 0%, #F4953A 100%);
+      padding: 28px 32px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .phase-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .card-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .card-header p {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 6px;
+    }
+    .card-body { padding: 32px; }
+    .section { margin-bottom: 28px; }
+    .section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #E07A2F;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 16px;
+      background: #E07A2F;
+      border-radius: 2px;
+    }
+    .pov-statement {
+      background: #FFF5EB;
+      border-left: 4px solid #E07A2F;
+      padding: 20px;
+      border-radius: 0 12px 12px 0;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+    .insight-item {
+      background: #FFF9F0;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #FFE8D6;
+    }
+    .insight-item:last-child { margin-bottom: 0; }
+    .insight-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #E07A2F;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .insight-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #333;
+    }
+    .stakeholder-list {
+      display: grid;
+      gap: 10px;
+    }
+    .stakeholder-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #FAFAFA;
+      border-radius: 10px;
+      border: 1px solid #EEE;
+    }
+    .stakeholder-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .stakeholder-info { flex: 1; }
+    .stakeholder-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+    .stakeholder-role {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+    .priority-badge {
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .priority-high { background: #FFE8D6; color: #E07A2F; }
+    .priority-medium { background: #FFF3E0; color: #F4953A; }
+    .priority-low { background: #F0F0F0; color: #888; }
+    .meta-bar {
+      display: flex;
+      gap: 20px;
+      padding: 16px 32px;
+      background: #FAFAFA;
+      border-top: 1px solid #EEE;
+      font-size: 12px;
+      color: #888;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .requirement-list {
+      list-style: none;
+    }
+    .requirement-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #F0F0F0;
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .requirement-list li:last-child { border-bottom: none; }
+    .req-priority {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .req-p0 { background: #E07A2F; }
+    .req-p1 { background: #F4953A; }
+    .req-p2 { background: #CCC; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="phase-badge">🔵 REVEAL 阶段</div>
+      <h1>用户POV卡片</h1>
+      <p>基于FIND模型洞察挖掘</p>
+    </div>
+    <div class="card-body">
+      <!-- POV声明 -->
+      <div class="section">
+        <div class="section-title">核心POV</div>
+        <div class="pov-statement" id="pov-statement">
+          [用户角色] 在 [情境] 时，需要 [洞察需求]，因为 [深层动机]。
+        </div>
+      </div>
+      <!-- FIND洞察 -->
+      <div class="section">
+        <div class="section-title">FIND 洞察</div>
+        <div id="insights-list">
+          <div class="insight-item">
+            <div class="insight-label">事实 (Facts)</div>
+            <div class="insight-text" id="fact-text">加载中...</div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-label">解读 (Interpret)</div>
+            <div class="insight-text" id="interpret-text">加载中...</div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-label">需求 (Need)</div>
+            <div class="insight-text" id="need-text">加载中...</div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-label">设计洞察 (Design Insight)</div>
+            <div class="insight-text" id="insight-text">加载中...</div>
+          </div>
+        </div>
+      </div>
+      <!-- 利益相关方 -->
+      <div class="section">
+        <div class="section-title">利益相关方</div>
+        <div class="stakeholder-list" id="stakeholder-list">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+      <!-- 需求优先级 -->
+      <div class="section">
+        <div class="section-title">需求优先级</div>
+        <ul class="requirement-list" id="requirement-list">
+          <!-- 动态生成 -->
+        </ul>
+      </div>
+    </div>
+    <div class="meta-bar">
+      <div class="meta-item">📅 <span id="date">2026-05-06</span></div>
+      <div class="meta-item">👤 <span id="user">用户</span></div>
+      <div class="meta-item">🏷️ <span id="project">项目名称</span></div>
+    </div>
+  </div>
+  <script>
+    // 数据加载示例 - 实际使用时从JSON文件加载
+    const data = {
+      pov: "[年轻职场人] 在 [工作压力大且缺乏支持] 时，需要 [灵活的情绪释放方式]，因为 [不想让负面情绪影响工作和人际关系]。",
+      facts: "用户每天工作10+小时，67%感到焦虑，但只有23%会主动寻求帮助。",
+      interpret: "用户把情绪问题看作'弱点'，害怕被同事/上级评判，导致问题积累。",
+      need: "需要一种'安全'的情绪释放方式——私密、即时、不需解释。",
+      insight: "设计应该让用户觉得'我在提升效率'而不是'我在处理情绪'——重新框定（reframing）降低心理门槛。",
+      stakeholders: [
+        { name: "直接用户", role: "年轻职场人", priority: "high", emoji: "👤" },
+        { name: "HR部门", role: "企业采购方", priority: "medium", emoji: "🏢" },
+        { name: "心理健康专家", role: "内容审核", priority: "medium", emoji: "🩺" }
+      ],
+      requirements: [
+        { text: "支持匿名使用", priority: "P0" },
+        { text: "5分钟内完成一次情绪释放", priority: "P0" },
+        { text: "提供专业心理支持入口", priority: "P1" },
+        { text: "生成情绪趋势报告", priority: "P2" }
+      ]
+    };
+    // 渲染函数
+    function renderCard(data) {
+      document.getElementById('pov-statement').textContent = data.pov;
+      document.getElementById('fact-text').textContent = data.facts;
+      document.getElementById('interpret-text').textContent = data.interpret;
+      document.getElementById('need-text').textContent = data.need;
+      document.getElementById('insight-text').textContent = data.insight;
+      const shList = document.getElementById('stakeholder-list');
+      shList.innerHTML = data.stakeholders.map(sh => `
+        <div class="stakeholder-item">
+          <div class="stakeholder-avatar">${sh.emoji}</div>
+          <div class="stakeholder-info">
+            <div class="stakeholder-name">${sh.name}</div>
+            <div class="stakeholder-role">${sh.role}</div>
+          </div>
+          <div class="priority-badge priority-${sh.priority}">${sh.priority === 'high' ? '高优先级' : sh.priority === 'medium' ? '中优先级' : '低优先级'}</div>
+        </div>
+      `).join('');
+      const reqList = document.getElementById('requirement-list');
+      reqList.innerHTML = data.requirements.map(req => `
+        <li>
+          <div class="req-priority req-${req.priority.toLowerCase().replace('p', 'p')}"></div>
+          ${req.text}
+          <span style="margin-left:auto;font-size:12px;color:#888">${req.priority}</span>
+        </li>
+      `).join('');
+    }
+    renderCard(data);
+  </script>
+</body>
+</html>
