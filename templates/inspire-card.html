@@ -19,7 +19,7 @@
       background: white;
       border-radius: 20px;
       box-shadow: 0 20px 60px rgba(127, 119, 221, 0.15), 0 8px 20px rgba(0,0,0,0.08);
-      max-width: 900px;
+      max-width: 960px;
       width: 100%;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -166,7 +166,38 @@
     .tag-core { background: #7F77DD; color: white; }
     .tag-quick { background: #E8F5E9; color: #2E7D32; }
     .tag-focus { background: #FFF3E0; color: #E65100; }
-    /* 灵感库 */
+    /* 跨界创意灵感库 */
+    .cross-industry-list { display: grid; gap: 12px; }
+    .cross-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 16px;
+      padding: 16px;
+      background: #FAFAFA;
+      border-radius: 12px;
+      border: 1px solid #EEE;
+    }
+    .cross-industry-tag {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #7F77DD 0%, #9B93E8 100%);
+      border-radius: 10px;
+      padding: 10px;
+      color: white;
+      text-align: center;
+    }
+    .cross-industry-name { font-size: 11px; font-weight: 600; }
+    .cross-industry-emoji { font-size: 24px; margin-bottom: 4px; }
+    .cross-content { }
+    .cross-solution { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; }
+    .cross-desc { font-size: 12px; color: #666; line-height: 1.5; }
+    .cross-inspiration { font-size: 12px; color: #7F77DD; margin-top: 8px; font-weight: 500; }
+    .cross-rating { display: flex; gap: 2px; margin-top: 6px; }
+    .cross-rating span { color: #7F77DD; font-size: 14px; }
+    .cross-rating span.inactive { color: #DDD; }
+    /* 候选灵感列表 */
     .inspiration-list { display: grid; gap: 10px; }
     .inspiration-item {
       display: flex;
@@ -205,6 +236,7 @@
       border-top: 1px solid #EEE;
       font-size: 12px;
       color: #888;
+      flex-wrap: wrap;
     }
     .meta-item { display: flex; align-items: center; gap: 6px; }
   </style>
@@ -220,7 +252,7 @@
       <!-- HMW问题 -->
       <div class="section">
         <div class="section-title">How Might We 问题</div>
-        <div class="hmw-grid" id="hmw-grid">
+        <div class="hmw-grid">
           <div class="hmw-item">
             <div class="hmw-source">来源: 洞察#1</div>
             <div class="hmw-text">How might we 让年轻职场人在感到压力时，无需解释就能获得情绪支持？</div>
@@ -274,10 +306,61 @@
           </div>
         </div>
       </div>
-      <!-- 灵感库（前5候选） -->
+      <!-- 跨界创意灵感库 -->
+      <div class="section">
+        <div class="section-title">跨界创意灵感库</div>
+        <div class="cross-industry-list">
+          <div class="cross-item">
+            <div class="cross-industry-tag">
+              <div class="cross-industry-emoji">🎮</div>
+              <div class="cross-industry-name">游戏化</div>
+            </div>
+            <div class="cross-content">
+              <div class="cross-solution">《Headspace》的冥想进度游戏化</div>
+              <div class="cross-desc">通过勋章、连续打卡、等级系统让用户对"情绪管理"上瘾，而不是觉得是负担。</div>
+              <div class="cross-inspiration">💡 启发：情绪释放也可以有"连续5天"挑战 + 成就徽章</div>
+              <div class="cross-rating">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span class="inactive">★</span>
+                <span style="margin-left:6px;font-size:11px;color:#888;">适配度: 4/5</span>
+              </div>
+            </div>
+          </div>
+          <div class="cross-item">
+            <div class="cross-industry-tag">
+              <div class="cross-industry-emoji">📱</div>
+              <div class="cross-industry-name">社交</div>
+            </div>
+            <div class="cross-content">
+              <div class="cross-solution">「秘密树洞」匿名社交模式</div>
+              <div class="cross-desc">用户匿名分享秘密，其他人点赞/评论，但永不暴露身份。核心在于"安全的脆弱"。</div>
+              <div class="cross-inspiration">💡 启发：情绪释放不需要社交，但需要"被听见"的感觉 → AI模拟倾听者</div>
+              <div class="cross-rating">
+                <span>★</span><span>★</span><span>★</span><span class="inactive">★</span><span class="inactive">★</span>
+                <span style="margin-left:6px;font-size:11px;color:#888;">适配度: 3/5</span>
+              </div>
+            </div>
+          </div>
+          <div class="cross-item">
+            <div class="cross-industry-tag">
+              <div class="cross-industry-emoji">🎧</div>
+              <div class="cross-industry-name">音频</div>
+            </div>
+            <div class="cross-content">
+              <div class="cross-solution">「小宇宙」播客的陪伴感设计</div>
+              <div class="cross-desc">用"陪你"的语气，让信息消费变成情感陪伴。声音比文字更有温度。</div>
+              <div class="cross-inspiration">💡 启发：AI情绪伙伴可以用"播客主播"的语气，而不是客服语气</div>
+              <div class="cross-rating">
+                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                <span style="margin-left:6px;font-size:11px;color:#888;">适配度: 5/5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 候选灵感（前5候选） -->
       <div class="section">
         <div class="section-title">候选灵感（Top 5）</div>
-        <div class="inspiration-list" id="inspiration-list">
+        <div class="inspiration-list">
           <div class="inspiration-item">
             <div class="inspiration-icon">🤖</div>
             <div class="inspiration-content">
@@ -286,12 +369,21 @@
               <div class="inspiration-type">类型: 产品 | 可行性: ★★★★☆ | 影响力: ★★★★★</div>
             </div>
           </div>
+          <div class="inspiration-item">
+            <div class="inspiration-icon">📝</div>
+            <div class="inspiration-content">
+              <div class="inspiration-title">IDEA-02: 情绪日记模板</div>
+              <div class="inspiration-desc">轻量级结构化记录工具，支持标签分类和情绪趋势可视化</div>
+              <div class="inspiration-type">类型: 服务 | 可行性: ★★★★★ | 影响力: ★★★☆☆</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="meta-bar">
       <div class="meta-item">📅 <span>2026-05-06</span></div>
       <div class="meta-item">💡 <span>12个HMW → 5个候选</span></div>
+      <div class="meta-item">🌏 <span>3个跨界灵感</span></div>
       <div class="meta-item">🎯 <span>下一步: Shape阶段</span></div>
     </div>
   </div>

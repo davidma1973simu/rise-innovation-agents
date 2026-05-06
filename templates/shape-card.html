@@ -19,7 +19,7 @@
       background: white;
       border-radius: 20px;
       box-shadow: 0 20px 60px rgba(15, 110, 86, 0.15), 0 8px 20px rgba(0,0,0,0.08);
-      max-width: 960px;
+      max-width: 980px;
       width: 100%;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -184,16 +184,44 @@
     .label-Must { background: #FFEBEE; color: #C62828; }
     .label-Should { background: #FFF3E0; color: #E65100; }
     .label-Could { background: #E8F5E9; color: #2E7D32; }
-    /* UX故事 */
-    .ux-story-list { display: grid; gap: 12px; }
-    .ux-story {
-      background: #F9FBE7;
-      border-left: 4px solid #689F38;
-      padding: 16px 20px;
-      border-radius: 0 12px 12px 0;
+    /* 用户体验故事 - 6步故事板 */
+    .storyboard { display: grid; gap: 16px; }
+    .story-step {
+      background: #FAFAFA;
+      border-radius: 14px;
+      padding: 20px;
+      border-left: 4px solid #0F6E56;
     }
-    .ux-role { font-size: 11px; color: #689F38; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .ux-story-text { font-size: 14px; color: #333; line-height: 1.6; margin-top: 6px; }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #0F6E56;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0F6E56;
+    }
+    .step-desc {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.7;
+      padding-left: 38px;
+    }
     .meta-bar {
       display: flex;
       gap: 20px;
@@ -210,9 +238,9 @@
 <body>
   <div class="card">
     <div class="card-header">
-      <div class="phase-badge">🔷 SHAPE 阶段</div>
+      <div class="phase-badge">🟢 SHAPE 阶段</div>
       <h1>方案架构卡片</h1>
-      <p>四维度拷问 · 概念方案 · 功能设计</p>
+      <p>四维度拷问 · 概念方案 · 功能设计 · 用户体验故事</p>
     </div>
     <div class="card-body">
       <!-- 四维度拷问 -->
@@ -290,24 +318,58 @@
           </div>
         </div>
       </div>
-      <!-- UX故事 -->
+      <!-- 用户体验故事 - 6步故事板 -->
       <div class="section">
-        <div class="section-title">用户体验故事</div>
-        <div class="ux-story-list">
-          <div class="ux-story">
-            <div class="ux-role">作为 深夜加班的产品经理</div>
-            <div class="ux-story-text">当 我感到焦虑但不想打扰家人 时，我希望 有一个安全的出口把情绪倒出来，以便 睡个好觉而不带着情绪入睡。</div>
+        <div class="section-title">用户体验故事（故事板）</div>
+        <div class="storyboard">
+          <div class="story-step">
+            <div class="step-header">
+              <div class="step-number">1</div>
+              <div class="step-title">用户场景挑战</div>
+            </div>
+            <div class="step-desc">小美是一名27岁的互联网公司产品经理，经常加班到深夜。某天被总监当众批评方案后，她躲在洗手间偷偷抹眼泪，不想让同事看到自己的脆弱，也不想回家把情绪传递给家人。她需要5分钟让自己恢复平静，但不能被任何人发现。</div>
           </div>
-          <div class="ux-story">
-            <div class="ux-role">作为 刚被批评的新人</div>
-            <div class="ux-story-text">当 我在洗手间独处 时，我希望 快速释放委屈和不安，以便 回到工位时看起来平静如常。</div>
+          <div class="story-step">
+            <div class="step-header">
+              <div class="step-number">2</div>
+              <div class="step-title">POV</div>
+            </div>
+            <div class="step-desc">作为一个「不想被看见脆弱的年轻职场人」，在「被批评/压力爆棚」的时刻，她需要「一个安全的、即时的、无需解释的出口」，因为「她不想让负面情绪影响自己的专业形象，也不想给家人增添心理负担」。</div>
+          </div>
+          <div class="story-step">
+            <div class="step-header">
+              <div class="step-number">3</div>
+              <div class="step-title">接触方案</div>
+            </div>
+            <div class="step-desc">小美在小红书上看到一篇种草笔记：《不想找人倾诉的时候，我用什么》。博主分享了「悄悄话」——一个打开就能说话、无需注册、对话即消失的AI情绪工具。小美被「无需注册」「打开即说」这两个点击中，当晚就搜索并打开了小程序。</div>
+          </div>
+          <div class="story-step">
+            <div class="step-header">
+              <div class="step-number">4</div>
+              <div class="step-title">使用方案</div>
+            </div>
+            <div class="step-desc">小美打开「悄悄话」，界面只有一句话：「你想说什么，我都在听。」她试探性地说：「今天被骂了，很委屈。」AI回应：「被当众批评一定很难受。你愿意多说一点吗？」没有建议、没有评判，只是听见。小美继续说了一句：「我觉得自己很没用。」AI静静地陪着她，偶尔追问，偶尔肯定。8分钟后，AI问：「你现在感觉好一点了吗？」小美发现，情绪真的松动了一些。</div>
+          </div>
+          <div class="story-step">
+            <div class="step-header">
+              <div class="step-number">5</div>
+              <div class="step-title">得到结果</div>
+            </div>
+            <div class="step-desc">连续使用「悄悄话」一周后，小美发现：① 情绪恢复时间从原来的「整晚」缩短到「20分钟内」；② 她开始能在情绪来袭时立刻打开，而不是等它堆积；③ 她给AI的对话打了标签，一周后看到「情绪地图」，终于看见自己的压力模式——每周三和周日晚是情绪低谷。</div>
+          </div>
+          <div class="story-step">
+            <div class="step-header">
+              <div class="step-number">6</div>
+              <div class="step-title">用户感受</div>
+            </div>
+            <div class="step-desc">「它让我觉得，脆弱不是弱点，是人之常情。而且最重要的是——它不会评判我，不会告诉我'你应该怎样'。它只是……在那里。这种感觉，就像有个不会泄密的朋            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="meta-bar">
       <div class="meta-item">📅 <span>2026-05-06</span></div>
-      <div class="meta-item">🔷 <span>4维度: 3Pass + 1Conditional</span></div>
+      <div class="meta-item">🟢 <span>4维度: 3Pass + 1Conditional</span></div>
       <div class="meta-item">🎯 <span>下一步: Exam验证</span></div>
     </div>
   </div>

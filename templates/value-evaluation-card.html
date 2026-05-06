@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>创新价值评估卡片</title>
+  <style>
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(245, 158, 11, 0.15), 0 8px 20px rgba(0,0,0,0.08);
+      max-width: 960px;
+      width: 100%;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 70px rgba(245, 158, 11, 0.25), 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .card-header {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      padding: 28px 32px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .phase-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .card-header h1 { font-size: 24px; font-weight: 700; line-height: 1.3; }
+    .card-header p { font-size: 14px; opacity: 0.9; margin-top: 6px; }
+    .card-body { padding: 32px; }
+    .section { margin-bottom: 36px; }
+    .section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #92400E;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 18px;
+      background: #F59E0B;
+      border-radius: 2px;
+    }
+    /* 用户价值 AHA */
+    .aha-grid { display: grid; gap: 16px; }
+    .aha-card {
+      background: #FFFBEB;
+      border: 2px solid #FDE68A;
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .aha-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .aha-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #92400E;
+    }
+    .aha-sublabel { font-size: 11px; color: #B45309; font-weight: 500; margin-left: 6px; }
+    .star-rating { display: flex; gap: 2px; }
+    .star-rating span { font-size: 16px; }
+    .star-rating span.filled { color: #F59E0B; }
+    .star-rating span.empty { color: #E5E7EB; }
+    .aha-desc {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.7;
+    }
+    /* 商业价值 MAP */
+    .map-grid { display: grid; gap: 16px; }
+    .map-card {
+      background: #F0FDF4;
+      border: 2px solid #86EFAC;
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .map-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .map-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #14532D;
+    }
+    .map-sublabel { font-size: 11px; color: #15803D; font-weight: 500; margin-left: 6px; }
+    .map-desc {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.7;
+    }
+    /* 综合评价 */
+    .overall-box {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+    .overall-score {
+      font-size: 48px;
+      font-weight: 800;
+      color: #92400E;
+      line-height: 1;
+    }
+    .overall-label { font-size: 14px; color: #92400E; margin-top: 8px; font-weight: 600; }
+    .overall-summary {
+      font-size: 13px;
+      color: #78350F;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+    .meta-bar {
+      display: flex;
+      gap: 20px;
+      padding: 16px 32px;
+      background: #FAFAFA;
+      border-top: 1px solid #EEE;
+      font-size: 12px;
+      color: #888;
+      flex-wrap: wrap;
+    }
+    .meta-item { display: flex; align-items: center; gap: 6px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="phase-badge">🏆 创新价值评估</div>
+      <h1>「悄悄话」AI情绪伙伴</h1>
+      <p>用户价值 AHA · 商业价值 MAP · 综合评价</p>
+    </div>
+    <div class="card-body">
+      <!-- 用户价值 AHA -->
+      <div class="section">
+        <div class="section-title">🤩 用户价值 AHA</div>
+        <div class="aha-grid">
+          <div class="aha-card">
+            <div class="aha-header">
+              <div>
+                <span class="aha-label">Awaken</span>
+                <span class="aha-sublabel">顿悟：用户第一次意识到『原来我可以这样』</span>
+              </div>
+              <div class="star-rating">
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="empty">★</span>
+              </div>
+            </div>
+            <div class="aha-desc">
+              用户在第一次使用后发现：「原来情绪不需要被解决，只需要被听见。」这是一种认知上的顿悟——情绪伙伴不是工具，是「在场的陪伴者」。用户从「我要解决问题」转向「我可以被理解」。
+            </div>
+          </div>
+          <div class="aha-card">
+            <div class="aha-header">
+              <div>
+                <span class="aha-label">Highlight</span>
+                <span class="aha-sublabel">高光：用户最爱的那个瞬间</span>
+              </div>
+              <div class="star-rating">
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+              </div>
+            </div>
+            <div class="aha-desc">
+              用户最爱的瞬间是「AI问我：你现在感觉好一点了吗？」——这个追问让用户意识到：「我的情绪被认真对待了」。比起任何情绪释放技巧，这个「被主动关心」的瞬间是最高光时刻。
+            </div>
+          </div>
+          <div class="aha-card">
+            <div class="aha-header">
+              <div>
+                <span class="aha-label">Achievement</span>
+                <span class="aha-sublabel">进步：用户可感知到的改变</span>
+              </div>
+              <div class="star-rating">
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="empty">★</span>
+                <span class="empty">★</span>
+              </div>
+            </div>
+            <div class="aha-desc">
+              用户可感知的进步包括：① 情绪恢复时间从「整晚」缩短到「20分钟内」；② 开始能在情绪来袭时「立刻打开」，而不是等它堆积；③ 一周后看到「情绪地图」，终于看见自己的压力模式。这三点都是可量化、可讲述的进步。
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 商业价值 MAP -->
+      <div class="section">
+        <div class="section-title">💰 商业价值 MAP</div>
+        <div class="map-grid">
+          <div class="map-card">
+            <div class="map-header">
+              <div>
+                <span class="map-label">Market</span>
+                <span class="map-sublabel">市场潜力：多少人愿意付钱？</span>
+              </div>
+              <div class="star-rating">
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="empty">★</span>
+              </div>
+            </div>
+            <div class="map-desc">
+              目标市场规模：中国职场人群约4亿，其中报告焦虑/情绪压力的占67%（约2.68亿）。其中愿意为心理健康付费的比例约12%（约3200万人）。如果渗透率1%，就是32万付费用户。按¥19/月计算，年ARR约7300万。市场潜力高，但需要教育市场。
+            </div>
+          </div>
+          <div class="map-card">
+            <div class="map-header">
+              <div>
+                <span class="map-label">Acquire</span>
+                <span class="map-sublabel">用户增长：如何低成本获客？</span>
+              </div>
+              <div class="star-rating">
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="empty">★</span>
+                <span class="empty">★</span>
+              </div>
+            </div>
+            <div class="map-desc">
+              获客路径：① 小红书/抖音内容种草（情绪管理技巧→引导到小程序）；② KOC传播（用户分享「我的情绪地图」截图）；③ 企业团购（HR采购员工心理健康福利）。当前挑战：纯匿名产品缺少「社交传播」杠杆，需要设计「可分享但不暴露隐私」的功能。
+            </div>
+          </div>
+          <div class="map-card">
+            <div class="map-header">
+              <div>
+                <span class="map-label">Protection</span>
+                <span class="map-sublabel">壁垒：别人为什么抄不走？</span>
+              </div>
+              <div class="star-rating">
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="filled">★</span>
+                <span class="empty">★</span>
+              </div>
+            </div>
+            <div class="map-desc">
+              核心壁垒：① 数据飞轮——对话越多，情绪识别越精准，用户越难离开；② 匿名信任——建立「说了不会被评判」的口碑需要时间，后来者难以快速复制；③ 专业背书——与心理机构合作，提供「AI预筛→人工介入」的闭环，形成服务壁垒。风险：大厂（如微信/阿里）若推出类似功能，竞争将加剧。
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 综合评价 -->
+      <div class="section">
+        <div class="section-title">📊 综合评价</div>
+        <div class="overall-box">
+          <div class="overall-score">4.2</div>
+          <div class="overall-label">/ 5.0 综合评分</div>
+          <div class="overall-summary">
+            用户价值维度表现优异（AHA平均4.3分），尤其是「Highlights」维度达到满分，说明产品有真正的「魔法瞬间」。<br>
+            商业价值维度略弱（MAP平均3.7分），主要受制于获客成本和市场教育周期。<br>
+            <strong>建议</strong>：优先放大「Highlight」时刻，设计能让用户主动传播的机制；同时加快企业端突破，降低C端获客压力。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="meta-bar">
+      <div class="meta-item">📅 <span>2026-05-06</span></div>
+      <div class="meta-item">🏆 <span>评估阶段: Post-Exam</span></div>
+      <div class="meta-item">📊 <span>AHA: 4.3/5 | MAP: 3.7/5</span></div>
+      <div class="meta-item">🎯 <span>建议: 放大Highlight + 企业端突破</span></div>
+    </div>
+  </div>
+</body>
+</html>

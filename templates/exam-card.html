@@ -79,6 +79,53 @@
       background: #64748B;
       border-radius: 2px;
     }
+    /* 原型反馈 - 四项具体内容 */
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .feedback-card {
+      border-radius: 14px;
+      padding: 18px;
+      border: 2px solid;
+    }
+    .feedback-effective { background: #F0FDF4; border-color: #22C55E; }
+    .feedback-ineffective { background: #FEF2F2; border-color: #EF4444; }
+    .feedback-more { background: #FFF7ED; border-color: #F97316; }
+    .feedback-new { background: #EFF6FF; border-color: #3B82F6; }
+    .feedback-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .feedback-icon { font-size: 18px; }
+    .feedback-label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .feedback-effective .feedback-label { color: #16A34A; }
+    .feedback-ineffective .feedback-label { color: #DC2626; }
+    .feedback-more .feedback-label { color: #EA580C; }
+    .feedback-new .feedback-label { color: #2563EB; }
+    .feedback-content {
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .feedback-quote {
+      font-size: 12px;
+      color: #64748B;
+      font-style: italic;
+      margin-top: 8px;
+      padding-left: 12px;
+      border-left: 3px solid;
+    }
+    .feedback-effective .feedback-quote { border-color: #22C55E; }
+    .feedback-ineffective .feedback-quote { border-color: #EF4444; }
+    .feedback-more .feedback-quote { border-color: #F97316; }
+    .feedback-new .feedback-quote { border-color: #3B82F6; }
     /* 电梯演讲 */
     .pitch-box {
       background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
@@ -170,23 +217,6 @@
       background: #64748B;
       flex-shrink: 0;
     }
-    /* 反馈摘要 */
-    .feedback-summary {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .feedback-stat {
-      text-align: center;
-      padding: 12px 8px;
-      border-radius: 10px;
-    }
-    .stat-positive { background: #F0FDF4; }
-    .stat-neutral { background: #FEF3C7; }
-    .stat-negative { background: #FEE2E2; }
-    .stat-count { font-size: 24px; font-weight: 700; color: #1e293b; }
-    .stat-label { font-size: 11px; color: #64748B; margin-top: 4px; }
     .meta-bar {
       display: flex;
       gap: 20px;
@@ -208,25 +238,56 @@
       <p>原型反馈 · 假设验证 · 迭代决策</p>
     </div>
     <div class="card-body">
-      <!-- 原型反馈摘要 -->
+      <!-- 原型反馈 - 四项具体内容 -->
       <div class="section">
-        <div class="section-title">原型反馈摘要</div>
-        <div class="feedback-summary">
-          <div class="feedback-stat stat-positive">
-            <div class="stat-count">8</div>
-            <div class="stat-label">✅ 积极</div>
+        <div class="section-title">原型反馈</div>
+        <div class="feedback-grid">
+          <div class="feedback-card feedback-effective">
+            <div class="feedback-header">
+              <div class="feedback-icon">✅</div>
+              <div class="feedback-label">有效的</div>
+            </div>
+            <div class="feedback-content">
+              ① 匿名性获得一致好评，用户愿意说实话。<br>
+              ② AI「只听不打断」的设定让87%的用户感到安全。<br>
+              ③ 情绪标签自动生成的功能被认为是「超出预期」。
+              <div class="feedback-quote">"终于有个地方可以说真话，不用担心被评判。"</div>
+            </div>
           </div>
-          <div class="feedback-stat stat-neutral">
-            <div class="stat-count">3</div>
-            <div class="stat-label">⚠️ 困惑</div>
+          <div class="feedback-card feedback-ineffective">
+            <div class="feedback-header">
+              <div class="feedback-icon">❌</div>
+              <div class="feedback-label">无效的</div>
+            </div>
+            <div class="feedback-content">
+              ① 纯文字对话让用户觉得「不够直观」，尤其是情绪词汇匮乏的用户。<br>
+              ② 缺少「暂停对话」功能，5%的用户误触返回键丢失内容。<br>
+              ③ 情绪地图的可视化过于抽象，用户看不懂自己的模式。
+              <div class="feedback-quote">"我不知道这些曲线代表什么……能直接告诉我结论吗？"</div>
+            </div>
           </div>
-          <div class="feedback-stat stat-neutral">
-            <div class="stat-count">5</div>
-            <div class="stat-label">💡 建议</div>
+          <div class="feedback-card feedback-more">
+            <div class="feedback-header">
+              <div class="feedback-icon">🔍</div>
+              <div class="feedback-label">发现更多问题</div>
+            </div>
+            <div class="feedback-content">
+              ① 用户希望「导出给信任的人」——匿名性 vs. 被理解的需求之间存在张力。<br>
+              ② 深夜时段（23:00-2:00）是高峰期，但此时AI回应质量下降（模型疲劳？）。<br>
+              ③ 企业版HR担心「员工情绪数据」的合规性——即使匿名也存在法律风险。
+            </div>
           </div>
-          <div class="feedback-stat stat-negative">
-            <div class="stat-count">1</div>
-            <div class="stat-label">🔴 放弃</div>
+          <div class="feedback-card feedback-new">
+            <div class="feedback-header">
+              <div class="feedback-icon">💡</div>
+              <div class="feedback-label">新的看法启发</div>
+            </div>
+            <div class="feedback-content">
+              ① 「情绪伙伴」不一定要解决问题，也可以只是「陪着」——这颠覆了我们对「工具价值」的定义。<br>
+              ② 情绪释放可能是「社交替代」——用户真正需要的是被看见，AI可以是「演练场」。<br>
+              ③ 可以设计一个「情绪信箱」功能：写给未来的自己，7天后回看。
+              <div class="feedback-quote">"如果AI能陪我练习『如何说出感受』，那才是真正的价值。"</div>
+            </div>
           </div>
         </div>
       </div>
